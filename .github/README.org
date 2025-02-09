@@ -4,14 +4,11 @@
 
 Here be my dotfiles
 
-
-* TODO
-- Bootstrap new linux installations
-- macOS support
-
-* FIXME
+* Issues
 - auto switch between dark and light mode throughout the day
   - I may give up on this, kind of a hassle for little gain.
 - nvim config
   - started to redo, remembered I spend all my time in emacs anyway and stopped
   - i still use it for some quick fixes so it probably shouldn't be as ass as it is.
+- No working bootstrap for new machines
+- macOS support
