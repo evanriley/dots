@@ -1,0 +1,13 @@
+{
+  "host": "imap.fastmail.com",
+  "port": 993,
+  "tls": true,
+  "tlsOptions": {
+    "rejectUnauthorized": true
+  },
+  "username": "evan@evanriley.com",
+  "passwordCmd": "gpg -q --for-your-eyes-only --no-tty -d ~/.authinfo.asc 2>/dev/null | awk '/machine imap.fastmail.com login evan@evanriley.com/ {print $NF}'",
+  "boxes": ["INBOX"],
+  "onNewMail": "mbsync personal",
+  "onNewMailPost": "/home/evan/.config/scripts/mail-notify.sh"
+}

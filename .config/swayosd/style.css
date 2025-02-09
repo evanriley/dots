@@ -1,0 +1,19 @@
+window#osd {
+  background: alpha(#0f0f0f, 0.25);
+  margin: 10px;
+}
+
+progressbar {
+  background: alpha(#0f0f0f, 0.5);
+  padding: 10px;
+}
+
+progress {
+  background: white;
+}
+
+image {
+  background: alpha(#0f0f0f, 0.5);
+  padding: 5px;
+  color: white;
+}

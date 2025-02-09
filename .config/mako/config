@@ -1,0 +1,22 @@
+icon-path=/usr/share/icons/Adwaita
+font=Berkeley Mono
+max-icon-size=48
+default-timeout=5000
+max-icon-size=48
+layer=overlay
+margin=8
+padding=12
+width=300
+height=200
+border-size=1
+border-radius=4
+border-color=#424242
+background-color=#000000
+text-color=#FFFFFF
+progress-color=over #2e2e2e
+anchor=bottom-center
+
+[urgency=critical]
+border-color=#b66467
+default-timeout=0
+

@@ -1,0 +1,12 @@
+[tools]
+clojure = "latest"
+java = "temurin-23"
+ocaml = "latest"
+opam = "latest"
+rust = "latest"
+sbcl = "latest"
+zig = "latest"
+zls = "latest"
+
+[settings]
+erlang.compile = false
