@@ -124,7 +124,7 @@ First let's install the theme
 Then we can use it
 #+begin_src emacs-lisp
 ;; (setq doom-theme 'doom-homage-black)
-(setq doom-theme 'solarized-dark)
+ (setq doom-theme 'solarized-selenized-dark)
 #+end_src
 
 ** Fonts
@@ -230,7 +230,7 @@ It doesn't really matter how much you enable here, lazy loading will handle it.
        (emoji              ; 🙂
         +github
         +unicode)
-       hl-todo           ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
+       ;;hl-todo           ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
        ;;indent-guides     ; highlighted indent columns
        ligatures         ; ligatures and symbols to make your code pretty again
        ;;minimap           ; show a map of the code on the side

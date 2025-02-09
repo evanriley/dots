@@ -72,7 +72,7 @@
   (load custom-file))
 
 ;; (setq doom-theme 'doom-homage-black)
-(setq doom-theme 'solarized-dark)
+ (setq doom-theme 'solarized-selenized-dark)
 
 (setq doom-font (font-spec :family "Berkeley Mono" :size 14)
       doom-big-font (font-spec :family "Berkeley Mono" :size 24)
