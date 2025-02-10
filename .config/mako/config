@@ -10,9 +10,25 @@ width=300
 height=200
 border-size=1
 border-radius=4
+
+[mode=default]
 border-color=#424242
 background-color=#000000
 text-color=#FFFFFF
+progress-color=over #2e2e2e
+anchor=bottom-center
+
+[mode=dark]
+border-color=#424242
+background-color=#000000
+text-color=#FFFFFF
+progress-color=over #2e2e2e
+anchor=bottom-center
+
+[mode=dark]
+border-color=#424242
+background-color=#FFFFFF
+text-color=#000000
 progress-color=over #2e2e2e
 anchor=bottom-center
 
