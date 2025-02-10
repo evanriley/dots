@@ -1,4 +1,5 @@
-(package! solarized-theme)
+;; (package! solarized-theme)
+(package! auto-dark)
 
 (package! ultra-scroll
   :recipe (:host github :repo "jdtsmith/ultra-scroll"))

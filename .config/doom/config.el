@@ -72,7 +72,13 @@
   (load custom-file))
 
 ;; (setq doom-theme 'doom-homage-black)
- (setq doom-theme 'solarized-selenized-dark)
+(setq doom-theme nil)
+
+(after! doom-ui
+  ;; set your favorite themes
+  (setq custom-safe-themes t)
+  (setq! auto-dark-themes '((doom-zenburn) (doom-earl-grey)))
+  (auto-dark-mode))
 
 (setq doom-font (font-spec :family "Berkeley Mono" :size 14)
       doom-big-font (font-spec :family "Berkeley Mono" :size 24)
