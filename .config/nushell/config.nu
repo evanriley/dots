@@ -168,6 +168,7 @@ let light_theme = {
 
 $env.path ++= ["~/go/bin"]
 $env.path ++= ["~/.config/emacs/bin"]
+$env.path ++= ["~/.atuin/bin"]
 
 # Setup SSH
 # Set the SSH_AUTH_SOCK environment variable
@@ -953,5 +954,5 @@ $env.config = {
 
 mkdir ($nu.data-dir | path join "vendor/autoload")
 source ~/.oh-my-posh.nu
-
+source ~/.local/share/atuin/init.nu
 use ($nu.default-config-dir | path join mise.nu)
