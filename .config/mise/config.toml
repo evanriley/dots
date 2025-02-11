@@ -1,5 +1,6 @@
 [tools]
 clojure = "latest"
+go = "latest"
 java = "temurin-23"
 ocaml = "latest"
 opam = "latest"
