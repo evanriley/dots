@@ -27,16 +27,17 @@
     },
 
     "niri/window": {
-    	"format": "{}",
-    	"rewrite": {
-    		"(.*) - Mozilla Firefox": "🌎 $1",
-    		"(.*) - zsh": "> [$1]"
-    	}
+      "format": "{}",
+      "rewrite": {
+        "(.*) - Mozilla Firefox": "🌎 $1",
+        "(.*) - zsh": "> [$1]"
+      }
     },
 
 // Configuration - modules-center
 
     "modules-center": [
+      "custom/toggle-light-dark-mode",
       "idle_inhibitor",
       "custom/yubikey",
       "clock",
@@ -62,16 +63,23 @@
 
 
     "mpris": {
-    	"format": "{player_icon} {artist} - {title}",
-    	"format-paused": "{status_icon} {artist} - {title}",
-    	"player-icons": {
-    		"default": "▶",
-    		"mpv": "🎵"
-    	},
-    	"status-icons": {
-    		"paused": "⏸"
-    	},
-    	"ignored-players": ["firefox"]
+      "format": "{player_icon} {artist} - {title}",
+        "format-paused": "{status_icon} {artist} - {title}",
+      "player-icons": {
+        "default": "▶",
+        "mpv": "🎵"
+      },
+      "status-icons": {
+        "paused": "⏸"
+      },
+      "ignored-players": ["firefox"]
+    },
+
+
+     "custom/toggle-light-dark-mode": {
+        "format": "◩",
+        "tooltip-format": "Toggle between light and dark mode",
+        "on-click": "darkman toggle"
     },
 
     "clock": {
