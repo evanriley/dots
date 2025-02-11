@@ -25,7 +25,7 @@ text-color=#FFFFFF
 progress-color=over #2e2e2e
 anchor=bottom-center
 
-[mode=dark]
+[mode=light]
 border-color=#424242
 background-color=#FFFFFF
 text-color=#000000
