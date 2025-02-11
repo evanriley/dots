@@ -1,4 +1,3 @@
-;; (package! solarized-theme)
 (package! auto-dark)
 
 (package! ultra-scroll
@@ -11,8 +10,8 @@
   :recipe (:host github :repo "chep/copilot-chat.el" :files ("*.el")))
 
 (unpin! org)
+
 (package! org-contrib
-  ;; The `sr.ht' repo has been a bit flaky as of late.
   :recipe (:host github :repo "emacsmirror/org-contrib"
            :files ("lisp/*.el"))
   :pin "351c71397d893d896a47ad7e280607b4d59b84e4")

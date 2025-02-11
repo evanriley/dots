@@ -15,7 +15,7 @@
       user-login-name "evan"
       user-mail-address (rot13 "rina@rinaevyrl.arg"))
 
-(setq auth-sources '("~/.authinfo.asc")
+(setq auth-sources '("~/.authinfo.gpg")
       auth-source-cache-expiry nil) ; default is 7200 (2h)
 
 (setq-default
@@ -122,32 +122,32 @@
 
 (after! (evil copilot)
   (evil-define-key 'insert 'global (kbd "<tab>") 'copilot-accept-completion))
-  (setq copilot-idle-delay 0.1
-        copilot-max-char 100000)
-  (map! :leader
-        (:prefix ("e" . "copilot")
-         :desc "Enable Copilot Mode"
-         "c" #'copilot-mode
-         :desc "Display Chat Window"
-         "d" #'copilot-chat-display
-         :desc "Explain Selected Code"
-         "e" #'copilot-chat-explain
-         :desc "Review Selected Code"
-         "r" #'copilot-chat-review
-         :desc "Fix Selected Code"
-         "f" #'copilot-chat-fix
-         :desc "Optimize Selected Code"
-         "o" #'copilot-chat-optimize
-         :desc "Write Test for Code"
-         "t" #'copilot-chat-test
-         :desc "Add Current Buffer"
-         "a" #'copilot-chat-add-current-buffer
-         :desc "Document Selected Code"
-         "D" #'copilot-chat-doc
-         :desc "Reset Chat History"
-         "R" #'copilot-chat-reset
-         :desc "Remove Current Buffer"
-         "x" #'copilot-chat-del-current-buffer))
+(setq copilot-idle-delay 0.1
+      copilot-max-char 100000)
+(map! :leader
+      (:prefix ("e" . "copilot")
+       :desc "Enable Copilot Mode"
+       "c" #'copilot-mode
+       :desc "Display Chat Window"
+       "d" #'copilot-chat-display
+       :desc "Explain Selected Code"
+       "e" #'copilot-chat-explain
+       :desc "Review Selected Code"
+       "r" #'copilot-chat-review
+       :desc "Fix Selected Code"
+       "f" #'copilot-chat-fix
+       :desc "Optimize Selected Code"
+       "o" #'copilot-chat-optimize
+       :desc "Write Test for Code"
+       "t" #'copilot-chat-test
+       :desc "Add Current Buffer"
+       "a" #'copilot-chat-add-current-buffer
+       :desc "Document Selected Code"
+       "D" #'copilot-chat-doc
+       :desc "Reset Chat History"
+       "R" #'copilot-chat-reset
+       :desc "Remove Current Buffer"
+       "x" #'copilot-chat-del-current-buffer))
 
 (defun modeline-contitional-buffer-encoding ()
   "Hide \"LF UTF-8\" in modeline.
@@ -210,12 +210,12 @@ the user."
   (map! :map (evil-org-mode-map org-mode-map)
         :ni "C-k" #'tq/org-exit-link-forward
         :ni "C-j" #'tq/org-exit-link-backward)
-(map! :map evil-org-mode-map
-      :after evil-org
-      :n "g <up>" #'org-backward-heading-same-level
-      :n "g <down>" #'org-forward-heading-same-level
-      :n "g <left>" #'org-up-element
-      :n "g <right>" #'org-down-element))
+  (map! :map evil-org-mode-map
+        :after evil-org
+        :n "g <up>" #'org-backward-heading-same-level
+        :n "g <down>" #'org-forward-heading-same-level
+        :n "g <left>" #'org-up-element
+        :n "g <right>" #'org-down-element))
 
 (after! org-archive
   (setq org-archive-location "archive/%s_archive::datetree/"))
@@ -230,25 +230,25 @@ the user."
 
 (after! org-capture
   (defun org-capture-select-template-prettier (&optional keys)
-  "Select a capture template, in a prettier way than default
+    "Select a capture template, in a prettier way than default
 Lisp programs can force the template by setting KEYS to a string."
-  (let ((org-capture-templates
-         (or (org-contextualize-keys
-              (org-capture-upgrade-templates org-capture-templates)
-              org-capture-templates-contexts)
-             '(("t" "Task" entry (file+headline "" "Tasks")
-                "* TODO %?\n  %u\n  %a")))))
-    (if keys
-        (or (assoc keys org-capture-templates)
-            (error "No capture template referred to by \"%s\" keys" keys))
-      (org-mks org-capture-templates
-               "Select a capture template\n━━━━━━━━━━━━━━━━━━━━━━━━━"
-               "Template key: "
-               `(("q" ,(concat (nerd-icons-octicon "nf-oct-stop" :face 'nerd-icons-red :v-adjust 0.01) "\tAbort")))))))
-(advice-add 'org-capture-select-template :override #'org-capture-select-template-prettier)
+    (let ((org-capture-templates
+           (or (org-contextualize-keys
+                (org-capture-upgrade-templates org-capture-templates)
+                org-capture-templates-contexts)
+               '(("t" "Task" entry (file+headline "" "Tasks")
+                  "* TODO %?\n  %u\n  %a")))))
+      (if keys
+          (or (assoc keys org-capture-templates)
+              (error "No capture template referred to by \"%s\" keys" keys))
+        (org-mks org-capture-templates
+                 "Select a capture template\n━━━━━━━━━━━━━━━━━━━━━━━━━"
+                 "Template key: "
+                 `(("q" ,(concat (nerd-icons-octicon "nf-oct-stop" :face 'nerd-icons-red :v-adjust 0.01) "\tAbort")))))))
+  (advice-add 'org-capture-select-template :override #'org-capture-select-template-prettier)
 
-(defun org-mks-pretty (table title &optional prompt specials)
-  "Select a member of an alist with multiple keys. Prettified.
+  (defun org-mks-pretty (table title &optional prompt specials)
+    "Select a member of an alist with multiple keys. Prettified.
 
 TABLE is the alist which should contain entries where the car is a string.
 There should be two types of entries.
@@ -271,72 +271,72 @@ TITLE will be placed over the selection in the temporary buffer,
 PROMPT will be used when prompting for a key.  SPECIALS is an
 alist with (\"key\" \"description\") entries.  When one of these
 is selected, only the bare key is returned."
-  (save-window-excursion
-    (let ((inhibit-quit t)
-          (buffer (org-switch-to-buffer-other-window "*Org Select*"))
-          (prompt (or prompt "Select: "))
-          case-fold-search
-          current)
-      (unwind-protect
-          (catch 'exit
-            (while t
-              (setq-local evil-normal-state-cursor (list nil))
-              (erase-buffer)
-              (insert title "\n\n")
-              (let ((des-keys nil)
-                    (allowed-keys '("\C-g"))
-                    (tab-alternatives '("\s" "\t" "\r"))
-                    (cursor-type nil))
-                ;; Populate allowed keys and descriptions keys
-                ;; available with CURRENT selector.
-                (let ((re (format "\\`%s\\(.\\)\\'"
-                                  (if current (regexp-quote current) "")))
-                      (prefix (if current (concat current " ") "")))
-                  (dolist (entry table)
-                    (pcase entry
-                      ;; Description.
-                      (`(,(and key (pred (string-match re))) ,desc)
-                       (let ((k (match-string 1 key)))
-                         (push k des-keys)
-                         ;; Keys ending in tab, space or RET are equivalent.
-                         (if (member k tab-alternatives)
-                             (push "\t" allowed-keys)
-                           (push k allowed-keys))
-                         (insert (propertize prefix 'face 'font-lock-comment-face) (propertize k 'face 'bold) (propertize "›" 'face 'font-lock-comment-face) "  " desc "…" "\n")))
-                      ;; Usable entry.
-                      (`(,(and key (pred (string-match re))) ,desc . ,_)
-                       (let ((k (match-string 1 key)))
-                         (insert (propertize prefix 'face 'font-lock-comment-face) (propertize k 'face 'bold) "   " desc "\n")
-                         (push k allowed-keys)))
-                      (_ nil))))
-                ;; Insert special entries, if any.
-                (when specials
-                  (insert "─────────────────────────\n")
-                  (pcase-dolist (`(,key ,description) specials)
-                    (insert (format "%s   %s\n" (propertize key 'face '(bold nerd-icons-red)) description))
-                    (push key allowed-keys)))
-                ;; Display UI and let user select an entry or
-                ;; a sub-level prefix.
-                (goto-char (point-min))
-                (unless (pos-visible-in-window-p (point-max))
-                  (org-fit-window-to-buffer))
-                (let ((pressed (org--mks-read-key allowed-keys
-                                                  prompt
-                                                  (not (pos-visible-in-window-p (1- (point-max)))))))
-                  (setq current (concat current pressed))
-                  (cond
-                   ((equal pressed "\C-g") (user-error "Abort"))
-                   ;; Selection is a prefix: open a new menu.
-                   ((member pressed des-keys))
-                   ;; Selection matches an association: return it.
-                   ((let ((entry (assoc current table)))
-                      (and entry (throw 'exit entry))))
-                   ;; Selection matches a special entry: return the
-                   ;; selection prefix.
-                   ((assoc current specials) (throw 'exit current))
-                   (t (error "No entry available")))))))
-        (when buffer (kill-buffer buffer))))))
-(advice-add 'org-mks :override #'org-mks-pretty)
+    (save-window-excursion
+      (let ((inhibit-quit t)
+            (buffer (org-switch-to-buffer-other-window "*Org Select*"))
+            (prompt (or prompt "Select: "))
+            case-fold-search
+            current)
+        (unwind-protect
+            (catch 'exit
+              (while t
+                (setq-local evil-normal-state-cursor (list nil))
+                (erase-buffer)
+                (insert title "\n\n")
+                (let ((des-keys nil)
+                      (allowed-keys '("\C-g"))
+                      (tab-alternatives '("\s" "\t" "\r"))
+                      (cursor-type nil))
+                  ;; Populate allowed keys and descriptions keys
+                  ;; available with CURRENT selector.
+                  (let ((re (format "\\`%s\\(.\\)\\'"
+                                    (if current (regexp-quote current) "")))
+                        (prefix (if current (concat current " ") "")))
+                    (dolist (entry table)
+                      (pcase entry
+                        ;; Description.
+                        (`(,(and key (pred (string-match re))) ,desc)
+                         (let ((k (match-string 1 key)))
+                           (push k des-keys)
+                           ;; Keys ending in tab, space or RET are equivalent.
+                           (if (member k tab-alternatives)
+                               (push "\t" allowed-keys)
+                             (push k allowed-keys))
+                           (insert (propertize prefix 'face 'font-lock-comment-face) (propertize k 'face 'bold) (propertize "›" 'face 'font-lock-comment-face) "  " desc "…" "\n")))
+                        ;; Usable entry.
+                        (`(,(and key (pred (string-match re))) ,desc . ,_)
+                         (let ((k (match-string 1 key)))
+                           (insert (propertize prefix 'face 'font-lock-comment-face) (propertize k 'face 'bold) "   " desc "\n")
+                           (push k allowed-keys)))
+                        (_ nil))))
+                  ;; Insert special entries, if any.
+                  (when specials
+                    (insert "─────────────────────────\n")
+                    (pcase-dolist (`(,key ,description) specials)
+                      (insert (format "%s   %s\n" (propertize key 'face '(bold nerd-icons-red)) description))
+                      (push key allowed-keys)))
+                  ;; Display UI and let user select an entry or
+                  ;; a sub-level prefix.
+                  (goto-char (point-min))
+                  (unless (pos-visible-in-window-p (point-max))
+                    (org-fit-window-to-buffer))
+                  (let ((pressed (org--mks-read-key allowed-keys
+                                                    prompt
+                                                    (not (pos-visible-in-window-p (1- (point-max)))))))
+                    (setq current (concat current pressed))
+                    (cond
+                     ((equal pressed "\C-g") (user-error "Abort"))
+                     ;; Selection is a prefix: open a new menu.
+                     ((member pressed des-keys))
+                     ;; Selection matches an association: return it.
+                     ((let ((entry (assoc current table)))
+                        (and entry (throw 'exit entry))))
+                     ;; Selection matches a special entry: return the
+                     ;; selection prefix.
+                     ((assoc current specials) (throw 'exit current))
+                     (t (error "No entry available")))))))
+          (when buffer (kill-buffer buffer))))))
+  (advice-add 'org-mks :override #'org-mks-pretty)
 
   (defun +doct-icon-declaration-to-icon (declaration)
     "Convert :icon declaration to icon"
@@ -623,7 +623,7 @@ is selected, only the bare key is returned."
                           (:name "Trivial"
                            :priority<= "E"
                            :tag ("Trivial" "Unimportant")
-                           :todo ("SOMEDAY" )
+                           :todo ("SOMEDAY")
                            :order 90)
                           (:discard (:tag ("Chore" "Routine" "Daily")))))))))))
 
@@ -773,7 +773,7 @@ is selected, only the bare key is returned."
                 (concat (make-string (* n (1- org-indent-indentation-per-level))
                                      ?\s)
                         (if (> n 0)
-                             (char-to-string org-indent-boundary-char)
+                            (char-to-string org-indent-boundary-char)
                           "\u200b"))
                 nil 'face 'org-indent)))))
 
@@ -826,7 +826,7 @@ is selected, only the bare key is returned."
 (setq vterm-shell "nu")  ; assuming "nu" is the executable name for nushell
 
 (after! mu4e
-    (setq mu4e-change-filenames-when-moving t
+  (setq mu4e-change-filenames-when-moving t
         mu4e-maildir "~/.maildir/"
         mu4e-sent-folder "/personal/Sent"
         mu4e-drafts-folder "/personal/Drafts"
@@ -843,7 +843,7 @@ is selected, only the bare key is returned."
         mu4e-sent-messages-behavior 'sent
         mu4e-index-lazy-check t
         message-kill-buffer-on-exit t
-        auth-sources '("~/.authinfo.asc")
+        auth-sources '("~/.authinfo.gpg")
         message-auto-save-directory nil
         message-kill-buffer-query nil
         mu4e-view-prefer-html nil
@@ -856,7 +856,7 @@ is selected, only the bare key is returned."
         mm-inline-text-html-with-images nil
         mm-text-html-renderer 'gnus-w3m
         ;; Prefer plain text over HTML
-;;        mm-discouraged-alternatives '("text/html" "text/richtext")
+        ;;        mm-discouraged-alternatives '("text/html" "text/richtext")
         ;; Don't render HTML
 
         ;; SMTP settings
@@ -897,14 +897,14 @@ is selected, only the bare key is returned."
         ;; Headers
         mu4e-headers-date-format "%Y-%m-%d %H:%M"
         mu4e-headers-fields '((:date . 20)
-                            (:flags . 6)
-                            (:from . 22)
-                            (:subject))
+                              (:flags . 6)
+                              (:from . 22)
+                              (:subject))
 
         ;; Context
         mu4e-context-policy 'pick-first
         mu4e-compose-context-policy 'always-ask)
-    (setq mu4e-bookmarks
+  (setq mu4e-bookmarks
         '((:name "Inbox"
            :query "maildir:/personal/INBOX"
            :key ?i)
@@ -926,9 +926,9 @@ is selected, only the bare key is returned."
           (:name "Flagged"
            :query "flag:flagged"
            :key ?f)))
-    (setq epg-pinentry-mode 'loopback)
-    (if (string= (daemonp) "server")
-        (setenv "INSIDE_EMACS" "true")))
+  (setq epg-pinentry-mode 'loopback)
+  (if (string= (daemonp) "server")
+      (setenv "INSIDE_EMACS" "true")))
 
 (after! mu4e
 
