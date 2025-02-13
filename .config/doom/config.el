@@ -80,12 +80,12 @@
   (setq! auto-dark-themes '((doom-zenburn) (doom-earl-grey)))
   (auto-dark-mode))
 
-(setq doom-font (font-spec :family "Berkeley Mono" :size 14)
-      doom-big-font (font-spec :family "Berkeley Mono" :size 24)
-      doom-variable-pitch-font (font-spec :family "Overpass" :size 24)
-      doom-symbol-font (font-spec :family "JuliaMono" :size 14)
+(setq doom-font (font-spec :family "Berkeley Mono" :size 16)
+      doom-big-font (font-spec :family "Berkeley Mono" :size 26)
+      doom-variable-pitch-font (font-spec :family "Overpass" :size 26)
+      doom-symbol-font (font-spec :family "JuliaMono" :size 16)
       doom-emoji-font (font-spec :family "Twitter Color Emoji")
-      doom-serif-font (font-spec :family "IBM Plex Mono" :size 22 :weight 'light))
+      doom-serif-font (font-spec :family "IBM Plex Mono" :size 26 :weight 'light))
 
 (setq inhibit-compacting-font-caches t)    ; Never compact font caches
 (setq font-lock-maximum-decoration 2)       ; Reduce syntax highlighting complexity
