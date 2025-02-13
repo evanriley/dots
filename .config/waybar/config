@@ -37,9 +37,9 @@
 // Configuration - modules-center
 
     "modules-center": [
+      "custom/yubikey",
       "custom/toggle-light-dark-mode",
       "idle_inhibitor",
-      "custom/yubikey",
       "clock",
       "mpris"
     ],
