@@ -22,18 +22,18 @@ local add, now, later = MiniDeps.add, MiniDeps.now, MiniDeps.later
 now(function()
   vim.g.mapleader = " "
   vim.g.maplocalleader = ","
-  vim.opt.number = true                     -- Make line numbers default
-  vim.opt.relativenumber = true             -- Make the line numbers relative
-  vim.opt.signcolumn = 'number'             -- Makes signcolumn always one column with signs and linenumber
+  vim.opt.number = true
+  vim.opt.relativenumber = true
+  vim.opt.signcolumn = 'number'
   vim.opt.laststatus = 2
-  vim.opt.mouse = 'a'                       -- Enable mouse mode, can be useful for resizing splits
-  vim.opt.showmode = false                  -- Don't show the mode, since it's already in the status line
-  vim.opt.clipboard = 'unnamed,unnamedplus' -- Sync clipboard between OS and Neovim.
-  vim.opt.updatetime = 250                  -- Decrease update time
-  vim.opt.timeoutlen = 300                  -- Decrease mapped sequence wait time
-  vim.opt.scrolloff = 10                    -- Miniumum number of screen lines to keep above and below the cursor.
-  vim.opt.expandtab = true                  -- Tabs are space
-  vim.opt.tabstop = 2                       -- Tab/indent size
+  vim.opt.mouse = 'a'
+  vim.opt.showmode = false
+  vim.opt.clipboard = 'unnamed,unnamedplus'
+  vim.opt.updatetime = 250
+  vim.opt.timeoutlen = 300
+  vim.opt.scrolloff = 10
+  vim.opt.expandtab = true
+  vim.opt.tabstop = 2
   vim.opt.shiftwidth = 2
   vim.opt.softtabstop = 2
   vim.opt.wrap = false -- Display long lines as-is
@@ -51,28 +51,46 @@ now(function()
     update_interval = 1000,
     set_dark_mode = function()
       vim.api.nvim_set_option_value('background', 'dark', {})
-      vim.cmd('colorscheme zenburn')
+      --vim.cmd('colorscheme zenburn')
+      require('base16-colorscheme').setup({
+        base00 = '#3C3632',
+        base01 = '#4C4741',
+        base02 = '#605A52',
+        base03 = '#9E9A95',
+        base04 = '#CDCBC7',
+        base05 = '#ECEBE8',
+        base06 = '#F7F3EE',
+        base07 = '#FCFBF9',
+        base08 = '#BB9895',
+        base09 = '#B8BBA3',
+        base0A = '#C2B39F',
+        base0B = '#98A3BD',
+        base0C = '#B399AF',
+        base0D = '#8FAEAD',
+        base0E = '#B399AF',
+        base0F = '#BB9895'
+      })
     end,
     set_light_mode = function()
       vim.api.nvim_set_option_value('background', 'light', {})
       -- Earl-greyish
       require('base16-colorscheme').setup({
-        base00 = '#FCFBF9', -- Background
-        base01 = '#F7F3EE', -- Lighter background
-        base02 = '#E4DAE0', -- Selection background
-        base03 = '#7F7A73', -- Comments (darker for better contrast)
-        base04 = '#605A52', -- Dark foreground
-        base05 = '#605A52', -- Default foreground
-        base06 = '#4A4540', -- Light foreground (darker)
-        base07 = '#F7F3EE', -- Light background
-        base08 = '#8F5652', -- Red (Variables)
-        base09 = '#747B4D', -- Green (Numbers)
-        base0A = '#886A44', -- Yellow (Classes)
-        base0B = '#556995', -- Blue (Strings)
-        base0C = '#83577D', -- Magenta (Support)
-        base0D = '#477A7B', -- Cyan (Functions)
-        base0E = '#83577D', -- Keywords (using magenta)
-        base0F = '#8F5652'  -- Deprecated (using red)
+        base00 = '#FCFBF9',
+        base01 = '#F7F3EE',
+        base02 = '#E4DAE0',
+        base03 = '#7F7A73',
+        base04 = '#605A52',
+        base05 = '#605A52',
+        base06 = '#4A4540',
+        base07 = '#F7F3EE',
+        base08 = '#8F5652',
+        base09 = '#747B4D',
+        base0A = '#886A44',
+        base0B = '#556995',
+        base0C = '#83577D',
+        base0D = '#477A7B',
+        base0E = '#83577D',
+        base0F = '#8F5652'
       })
     end,
   })
