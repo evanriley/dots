@@ -47,53 +47,8 @@ add({ source = 'f-person/auto-dark-mode.nvim' })
 add({ source = 'phha/zenburn.nvim' })
 add({ source = 'RRethy/base16-nvim' })
 now(function()
-  require('auto-dark-mode').setup({
-    update_interval = 1000,
-    set_dark_mode = function()
-      vim.api.nvim_set_option_value('background', 'dark', {})
-      --vim.cmd('colorscheme zenburn')
-      require('base16-colorscheme').setup({
-        base00 = '#3C3632',
-        base01 = '#4C4741',
-        base02 = '#605A52',
-        base03 = '#9E9A95',
-        base04 = '#CDCBC7',
-        base05 = '#ECEBE8',
-        base06 = '#F7F3EE',
-        base07 = '#FCFBF9',
-        base08 = '#BB9895',
-        base09 = '#B8BBA3',
-        base0A = '#C2B39F',
-        base0B = '#98A3BD',
-        base0C = '#B399AF',
-        base0D = '#8FAEAD',
-        base0E = '#B399AF',
-        base0F = '#BB9895'
-      })
-    end,
-    set_light_mode = function()
-      vim.api.nvim_set_option_value('background', 'light', {})
-      -- Earl-greyish
-      require('base16-colorscheme').setup({
-        base00 = '#FCFBF9',
-        base01 = '#F7F3EE',
-        base02 = '#E4DAE0',
-        base03 = '#7F7A73',
-        base04 = '#605A52',
-        base05 = '#605A52',
-        base06 = '#4A4540',
-        base07 = '#F7F3EE',
-        base08 = '#8F5652',
-        base09 = '#747B4D',
-        base0A = '#886A44',
-        base0B = '#556995',
-        base0C = '#83577D',
-        base0D = '#477A7B',
-        base0E = '#83577D',
-        base0F = '#8F5652'
-      })
-    end,
-  })
+  vim.api.nvim_set_option_value('background', 'dark', {})
+  vim.cmd('colorscheme base16-nord')
 end)
 
 add({
