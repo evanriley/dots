@@ -43,8 +43,6 @@ end)
 -- Plugins (mostly from mini.nvim)
 
 -- Colorscheme
-add({ source = 'f-person/auto-dark-mode.nvim' })
-add({ source = 'phha/zenburn.nvim' })
 add({ source = 'RRethy/base16-nvim' })
 now(function()
   vim.api.nvim_set_option_value('background', 'dark', {})
@@ -64,13 +62,10 @@ now(function()
       'clojure',
       'eex',
       'elixir',
-      'heex',
       'go',
       'gomod',
       'gosum',
       'gowork',
-      'gleam',
-      'heex',
       'html',
       'lua',
       'luadoc',
@@ -156,7 +151,7 @@ now(function()
   require('lspconfig').gleam.setup({})
 end)
 
-later(function()
+now(function()
   require("mini.completion").setup({
     mappings = {
       go_in = "<RET>",
@@ -185,15 +180,28 @@ later(function()
   require("mini.extra").setup()
 end)
 
+add({ source = "stevearc/oil.nvim" })
 now(function()
-  require("mini.files").setup({
-    mappings = {
-      close = '<ESC>',
+  require('oil').setup({
+    default_file_explorer = true,
+    columns = {
+      "size",
     },
-    windows = {
-      preview = true,
-      border = "solid",
-      width_preview = 80,
+    delete_to_trash = true,
+    skip_confirm_for_simple_edits = true,
+  })
+end)
+
+add({ source = "stevearc/conform.nvim" })
+now(function()
+  require("conform").setup({
+    format_on_save = {
+      timeout_ms = 500,
+      lsp_format = "fallback",
+    },
+    formatters_by_ft = {
+      lua = { "stylua" },
+      go = { "gofmt", "goimports", },
     },
   })
 end)
