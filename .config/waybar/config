@@ -1,216 +1,135 @@
 {
-    "layer": "top",
-    "position": "bottom",
-    "spacing": 16,
-
-// Configuration - modules-left
-
-    "modules-left": [
-      "niri/workspaces",
-      "niri/window",
+  "layer": "top",
+  "position": "bottom",
+  "modules-left": [
+    "niri/workspaces",
+    "niri/window"
+  ],
+  "modules-center": [
+    "custom/yubikey",
+    "clock",
+    "mpris",
+  ],
+  "modules-right": [
+    "weather",
+    "idle_inhibitor",
+    "temperature",
+    "cpu",
+    "power-profiles-daemon",
+    "tray"
+  ],
+  "niri/workspaces": {
+    "all-outputs": true,
+    "format": "{icon}",
+    "disable-click": true,
+    "format-icons": {
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "9": "9",
+        "10": "10"
+    }
+  },
+  "niri/window": {
+    "format": "{title}",
+    "rewrite": {
+       "(.*) — Mozilla Firefox": "🌎 $1",
+    },
+    "tooltip": false
+  },
+  "custom/yubikey": {
+    "exec": "~/.config/scripts/waybar-yubikey",
+    "return-type": "json"
+  },
+  "idle_inhibitor": {
+    "format": "{icon}",
+    "format-icons": {
+      "activated": "",
+      "deactivated": ""
+    },
+    "tooltip": "true"
+  },
+  "tray": {
+    "spacing": 5
+  },
+  "clock": {
+    "format": "󰅐 {:%B %d, %Y %I:%M %p}",
+    "format-alt": "󰅐 {:%OI:%M %p}",
+    "tooltip-format": " {:%A %m/%d}\n\n<tt><small>{calendar}</small></tt>",
+    "calendar": {
+        "on-scroll": 1,
+        "format": {
+            "months":     "<span color='#ffead3'><b>{}</b></span>",
+            "days":       "<span color='#ecc6d9'><b>{}</b></span>",
+            "weeks":      "<span color='#99ffdd'><b>W{}</b></span>",
+            "weekdays":   "<span color='#ffcc66'><b>{}</b></span>",
+            "today":      "<span color='#ff6699'><b><u>{}</u></b></span>"
+        },
+    },
+    "actions": {
+        "on-scroll-up": "shift_up",
+        "on-scroll-down": "shift_down"
+    },
+  },
+  "cpu": {
+    "interval": "1",
+    "format": "  {max_frequency}GHz <span color=\"darkgray\">| {usage}%</span>",
+    "max-length": 13,
+    "min-length": 13,
+    "on-click": "kitty -e htop --sort-key PERCENT_CPU",
+    "tooltip": false
+  },
+  "power-profiles-daemon": {
+    "format": "{icon}",
+    "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
+    "tooltip": true,
+    "format-icons": {
+      "default": "",
+      "performance": "",
+      "balanced": "",
+      "power-saver": ""
+    }
+  },
+  "temperature": {
+    "interval": "4",
+    "hwmon-path": "/sys/class/hwmon/hwmon3/temp1_input",
+    "critical-threshold": 74,
+    "format-critical": "  {temperatureC}°C",
+    "format": "{icon}  {temperatureC}°C",
+    "format-icons": [
+      "",
+      "",
+      ""
     ],
-
-    "niri/workspaces": {
-        "all-outputs": true,
-        "format": "{icon}",
-        "disable-click": true,
-        "format-icons": {
-            "3": "3",
-            "4": "4",
-            "5": "5",
-            "6": "6",
-            "7": "7",
-            "8": "8",
-            "9": "9",
-            "10": "10"
-        }
+    "max-length": 7,
+    "min-length": 7
+  },
+  "network": {
+    "interface": "eno1",
+    "format-ethernet": "{ifname}: {ipaddr}/{cidr} ",
+    "format-linked": "{ifname} (No IP) ",
+    "format-disconnected": "",
+    "format-alt": "{ifname}: {ipaddr}/{cidr}",
+    "family": "ipv4",
+    "tooltip-format-ethernet": " {ifname}\nIP: {ipaddr}\n {bandwidthUpBits}  {bandwidthDownBits}"
+  },
+  "mpris": {
+    "format": "{player_icon} {artist} - {title}",
+      "format-paused": "{status_icon} {artist} - {title}",
+    "player-icons": {
+      "default": "<span font='12'></span>",
+      "mpv": "🎵"
     },
-
-    "niri/window": {
-      "format": "{}",
-      "rewrite": {
-        "(.*) - Mozilla Firefox": "🌎 $1",
-        "(.*) - zsh": "> [$1]"
-      }
+    "status-icons": {
+      "paused": "<span font='12'>󰏦</span>",
     },
-
-// Configuration - modules-center
-
-    "modules-center": [
-      "custom/yubikey",
-      "custom/toggle-light-dark-mode",
-      "idle_inhibitor",
-      "clock",
-      "mpris"
-    ],
-
-
-    "idle_inhibitor": {
-        "format": "{icon}",
-        "format-icons": {
-            "activated": "",
-            "deactivated": ""
-        },
-        "tooltip-format-activated": "Idle Inhibitor Activated",
-        "tooltip-format-deactivated": "Idle Inhibitor Deactivated"
-    },
-
-
-    "custom/yubikey": {
-      "exec": "~/.config/scripts/waybar-yubikey",
-      "return-type": "json"
-    },
-
-
-    "mpris": {
-      "format": "{player_icon} {artist} - {title}",
-        "format-paused": "{status_icon} {artist} - {title}",
-      "player-icons": {
-        "default": "▶",
-        "mpv": "🎵"
-      },
-      "status-icons": {
-        "paused": "⏸"
-      },
-      "ignored-players": ["firefox"]
-    },
-
-
-     "custom/toggle-light-dark-mode": {
-        "format": "◩",
-        "tooltip-format": "Toggle between light and dark mode",
-        "on-click": "darkman toggle"
-    },
-
-    "clock": {
-        "format": "󰅐 {:%B %d, %Y %I:%M %p}",
-        "format-alt": "󰅐 {:%OI:%M %p}",
-        "tooltip-format": " {:%A %m/%d}\n\n<tt><small>{calendar}</small></tt>",
-        "calendar": {
-            "on-scroll": 1,
-            "format": {
-                "months":     "<span color='#ffead3'><b>{}</b></span>",
-                "days":       "<span color='#ecc6d9'><b>{}</b></span>",
-                "weeks":      "<span color='#99ffdd'><b>W{}</b></span>",
-                "weekdays":   "<span color='#ffcc66'><b>{}</b></span>",
-                "today":      "<span color='#ff6699'><b><u>{}</u></b></span>"
-            },
-        },
-        "actions": {
-            "on-scroll-up": "shift_up",
-            "on-scroll-down": "shift_down"
-        },
-    },
-
-
-// Configuration - modules-right
-
-    "modules-right": [
-        "custom/weather",
-        "cpu",
-        "memory",
-        "backlight",
-        "pulseaudio",
-        "network",
-        "power-profiles-daemon",
-        "tray",
-        "custom/power"
-    ],
-
-    "custom/weather": {
-      "format": "{}°",
-      "tooltip": true,
-      "interval": 3600,
-      "exec": "~/Code/wttrbar/target/release/wttrbar --fahrenheit --nerd",
-      "return-type": "json"
-    },
-
-    "network": {
-        "format-disabled": " Disabled",
-        "format-wifi": " {bandwidthDownBits:>} 󰶡 {bandwidthUpBits:>} 󰶣",
-        "tooltip-format-wifi": "{essid}",
-        "format-ethernet": "󰈀 {bandwidthDownBits:>} 󰶡 {bandwidthUpBits:>} 󰶣",
-        "tooltip-format-ethernet": "{ifname}: {ipaddr}/{cidr}",
-        "format-disconnected": " Disconnected",
-        "on-click": "footclient -T waybar_nmtui -e nmtui",
-        "interval": 2
-    },
-
-
-    "cpu": {
-        "interval": 5,
-        "format": "{usage:>3}%",
-        "states": {
-            "warning": 70,
-            "critical": 90,
-        },
-        "on-click": "footclient -T waybar_htop -e htop"
-    },
-
-    "memory": {
-        "interval": 5,
-        "format": "{:>3}%",
-        "on-click": "footclient -T waybar_htop -e htop",
-        "states": {
-            "warning": 70,
-            "critical": 90
-        }
-    },
-
-    "backlight": {
-        "format": "{icon} {percent}%",
-        "format-icons": ["󰄰", "󰪞", "󰪟", "󰪠", "󰪡", "󰪢", "󰪣", "󰪤", "󰪥"],
-        "tooltip-format": "Backlight (Scroll): {percent:}%",
-        "on-scroll-down": "brightnessctl -c backlight set 5%-",
-        "on-scroll-up": "brightnessctl -c backlight set +5%"
-    },
-
-    "power-profiles-daemon": {
-      "format": "{icon}",
-      "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
-      "tooltip": true,
-      "format-icons": {
-        "default": "",
-        "performance": "",
-        "balanced": "",
-        "power-saver": ""
-      }
-    },
-
-    "pulseaudio": {
-        "scroll-step": 2,
-        "format": "{icon} {volume}%",
-        "format-muted":"󰝟 muted",
-        "format-icons": {
-            "headphones": "",
-            "handsfree": "",
-            "headset": "",
-            "phone": "",
-            "portable": "",
-            "car": "",
-            "default": ["󰕿", "󰖀", "󰕾"]
-        },
-        "on-click": "pavucontrol"
-    },
-
-    "battery": {
-        "states": {
-            "warning": 30,
-            "critical": 15
-        },
-        "format": "{icon} {capacity}%",
-        "format-icons": ["", "", "", "", ""]
-    },
-
-
-    "tray": {
-        "icon-size": 16,
-        "spacing":10
-     },
-
-    "custom/power": {
-        "format":"⏻",
-        "on-click": "exec ~/.config/scripts/power_menu.sh",
-        "tooltip": false
-    },
+    "ignored-players": ["firefox"],
+  },
+  "custom/weather": {
+    "exec": "curl 'https://wttr.in/?u&format=1'",
+    "interval": 3600
+  }
 }
