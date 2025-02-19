@@ -68,6 +68,15 @@ layout {
     always-center-single-column
     empty-workspace-above-first
 
+    shadow {
+        on
+        softness 30
+        spread 3
+        offset x=0 y=5
+        draw-behind-window true
+        color "#00000070"
+    }
+
     preset-column-widths {
         proportion 0.25
         proportion 0.5
