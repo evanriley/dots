@@ -1,9 +1,12 @@
 ;; WARNING: Some options may require an incredibly recent commit 
-(in-package :lem)
+(in-package :lem-user)
+;; When evaluating Lisp, do so with Lem's package
+(lem-lisp-mode/internal::lisp-set-package "LEM")
 
 ;;vi-mode
 (lem-vi-mode:vi-mode)
 (setf (lem-vi-mode:option-value "scrolloff") 5)
+(add-hook lem-lisp-mode:*lisp-repl-mode-hook* 'lem-vi-mode/commands:vi-insert)
 
 ;; enable line numbers, and make them relative
 (lem/line-numbers:toggle-line-numbers)
