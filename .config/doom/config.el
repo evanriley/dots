@@ -77,7 +77,7 @@
 (after! doom-ui
   ;; set your favorite themes
   (setq custom-safe-themes t)
-  (setq! auto-dark-themes '((doom-zenburn) (doom-earl-grey)))
+  (setq! auto-dark-themes '((doom-nord) (doom-earl-grey)))
   (auto-dark-mode))
 
 (setq doom-font (font-spec :family "Berkeley Mono" :size 16)
