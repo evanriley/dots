@@ -10,6 +10,7 @@ theme = nord
 font-size = 13
 font-family = Berkeley Mono
 font-family = Cascadia Mono NF
+font-feature = -calt, -liga, -dlig
 window-title-font-family = Berkeley Mono
 macos-titlebar-style = transparent
 background-opacity = 1
