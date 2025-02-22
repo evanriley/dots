@@ -121,14 +121,14 @@
        data              ; config/data formats
        ;;(dart +flutter)   ; paint ui and not much else
        ;;dhall
-       ;;(elixir            ; erlang done right
-       ;; +lsp
-       ;;+tree-sitter)
+       (elixir            ; erlang done right
+        +lsp
+        +tree-sitter)
        ;;elm               ; care for a cup of TEA?
        emacs-lisp        ; drown in parentheses
-       ;; (erlang            ; an elegant language for a more civilized age
-       ;;  +lsp
-       ;;  +tree-sitter)
+       (erlang            ; an elegant language for a more civilized age
+        +lsp
+        +tree-sitter)
        ;;ess               ; emacs speaks statistics
        ;;factor
        ;;faust             ; dsp, but you get to keep your soul
