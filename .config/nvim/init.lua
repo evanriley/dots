@@ -67,6 +67,7 @@ now(function()
       'gomod',
       'gosum',
       'gowork',
+      'heex',
       'html',
       'lua',
       'luadoc',
@@ -128,13 +129,14 @@ end)
 now(function()
   require('mason-lspconfig').setup({
     ensure_installed = {
-      'lua_ls',
-      'ts_ls',
-      'rust_analyzer',
-      'gopls',
       'clojure_lsp',
-      'jdtls',
       'elixirls',
+      'gopls',
+      'jdtls',
+      'lua_ls',
+      'rust_analyzer',
+      'ts_ls',
+      'zls'
     },
     automatic_installation = true,
   })
@@ -409,6 +411,29 @@ end)
 
 later(function()
   require("mini.visits").setup()
+end)
+
+-- Testing
+add({
+  source = 'nvim-neotest/neotest',
+  depends = {
+    'nvim-neotest/nvim-nio',
+    'antoinemadec/FixCursorHold.nvim',
+    'nvim-lua/plenary.nvim',
+    'jfpedroza/neotest-elixir',
+    'lawrence-laz/neotest-zig'
+  }
+})
+
+later(function()
+  require('neotest').setup({
+    adapters = {
+      require("neotest-elixir"),
+      require("neotest-zig") {
+        dap = { adapter = "lldb", }
+      }
+    }
+  })
 end)
 
 -- Debuggers
