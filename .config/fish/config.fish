@@ -2,7 +2,7 @@ set -g fish_greeting
 set -gx EDITOR nvim
 set -gx XDG_CONFIG_HOME "$HOME/.config"
 set -gx PATH ~/bin ~/.local/bin ~/go/bin ~/.config/emacs/bin ~/.atuin/bin ~/.roswell/bin ~/common-lisp/lem $PATH
-set -x SSH_AUTH_SOCK ~/.gnupg/S.gpg-agent.ssh
+set -x SSH_AUTH_SOCK (gpgconf --list-dirs agent-ssh-socket | string trim)
 
 alias vim nvim
 alias emacs emacsclient
