@@ -1,4 +1,4 @@
-command = nu
+command = fish
 working-directory = ~
 custom-shader-animation = true
 clipboard-read = allow
