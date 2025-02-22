@@ -38,6 +38,7 @@ now(function()
   vim.opt.softtabstop = 2
   vim.opt.wrap = false -- Display long lines as-is
   vim.opt.list = false
+  vim.opt.cmdheight = 0
 end)
 
 -- Plugins (mostly from mini.nvim)
@@ -466,22 +467,42 @@ end)
 
 -- Language requirements
 -- General
+--- Neorg
+add({
+  source = "nvim-neorg/neorg",
+  depends = { 'nvim-neorg/lua-utils.nvim', 'pysan3/pathlib.nvim' },
+})
+now(function()
+  require("neorg").setup({
+    load = {
+      ["core.defaults"] = {},
+      ["core.concealer"] = {},
+      ["core.dirman"] = {
+        config = {
+          workspaces = {
+            notes = "~/sync/neorg"
+          },
+          default_workspace = "notes",
+        }
+      },
+    }
+  })
+  vim.wo.foldlevel = 99
+  vim.wo.conceallevel = 2
+end)
 --- Clojure
 add({
   source = 'gpanders/nvim-parinfer'
 })
-vim.g.parinfer_mode = "indent"      -- Force indent mode
-vim.g.parinfer_enabled = 1          -- Enable parinfer
-vim.g.parinfer_force_balance = true -- Force balanced parentheses
 
-vim.api.nvim_create_autocmd('FileType', {
-  pattern = 'clojure',
-  callback = function()
-    add({
-      source = 'Olical/conjure',
-    })
-  end,
+add({
+  source = 'Olical/conjure',
 })
+now(function()
+  vim.g.parinfer_mode = "indent"      -- Force indent mode
+  vim.g.parinfer_enabled = 1          -- Enable parinfer
+  vim.g.parinfer_force_balance = true -- Force balanced parentheses
+end)
 
 require('autocmds')
 require('keymaps')
