@@ -1,0 +1,13 @@
+[Added Associations]
+x-scheme-handler/sms=org.gnome.Shell.Extensions.GSConnect.desktop;
+x-scheme-handler/tel=org.gnome.Shell.Extensions.GSConnect.desktop;
+x-scheme-handler/http=librewolf.desktop;
+application/xhtml+xml=librewolf.desktop;
+text/html=librewolf.desktop;
+x-scheme-handler/https=librewolf.desktop;
+
+[Default Applications]
+x-scheme-handler/http=librewolf.desktop
+application/xhtml+xml=librewolf.desktop
+text/html=librewolf.desktop
+x-scheme-handler/https=librewolf.desktop
