@@ -89,6 +89,7 @@
 #custom-pacman,
 #custom-weather,
 #custom-gpu,
+#custom-power,
 #tray,
 #backlight,
 #language,
@@ -299,6 +300,10 @@
 
 
 #tray {
+    background: #434C5E;
+}
+
+#custom-power {
     background: #434C5E;
 }
 

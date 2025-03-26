@@ -16,7 +16,8 @@
     "temperature",
     "cpu",
     "power-profiles-daemon",
-    "tray"
+    "tray",
+    "custom/power"
   ],
   "niri/workspaces": {
     "all-outputs": true,
@@ -131,5 +132,10 @@
   "custom/weather": {
     "exec": "curl 'https://wttr.in/?u&format=1'",
     "interval": 3600
-  }
+  },
+  "custom/power": {
+    "format":"⏻",
+    "on-click": "exec ~/.config/scripts/power_menu.sh",
+    "tooltip": false
+  },
 }
