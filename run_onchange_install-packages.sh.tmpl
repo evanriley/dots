@@ -1,0 +1,59 @@
+#!/bin/bash
+set -eufo pipefail
+
+echo "Setting up repositories and installing packages..."
+
+# Enable RPMFusion repositories
+{{ if .rpmfusion.enable }}
+echo "Enabling RPMFusion repositories..."
+sudo dnf install -y https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
+sudo dnf install -y https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+{{ end }}
+
+# Enable COPR repositories
+{{ if .copr.repos }}
+echo "Enabling COPR repositories..."
+{{ range .copr.repos }}
+sudo dnf copr enable -y {{ . }}
+{{ end }}
+{{ end }}
+
+# Add Flatpak repositories
+{{ if .flatpak.repos }}
+echo "Adding Flatpak repositories..."
+{{ range .flatpak.repos }}
+flatpak remote-add --if-not-exists {{ . }}
+{{ end }}
+{{ end }}
+
+# Install standard DNF packages
+{{ if .packages.dnf }}
+echo "Installing DNF packages..."
+sudo dnf install -y {{ range .packages.dnf }}{{ . }} {{ end }}
+{{ end }}
+
+# Install COPR packages
+{{ if .copr.packages }}
+echo "Installing COPR packages..."
+sudo dnf install -y {{ range .copr.packages }}{{ . }} {{ end }}
+{{ end }}
+
+# Install RPMFusion packages
+{{ if .rpmfusion.packages }}
+echo "Installing RPMFusion packages..."
+sudo dnf install -y {{ range .rpmfusion.packages }}{{ . }} {{ end }}
+{{ end }}
+
+# Install Flatpak packages from standard Flathub
+{{ if .flatpak.flathub }}
+echo "Installing Flatpak packages from Flathub..."
+flatpak install -y flathub {{ range .flatpak.flathub }}{{ . }} {{ end }}
+{{ end }}
+
+# Install Flatpak packages from Flathub Beta
+{{ if .flatpak.flathub_beta }}
+echo "Installing Flatpak packages from Flathub Beta..."
+flatpak install -y flathub-beta {{ range .flatpak.flathub_beta }}{{ . }} {{ end }}
+{{ end }}
+
+echo "Package installation complete!"
