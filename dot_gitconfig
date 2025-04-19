@@ -8,8 +8,8 @@
   lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
   a = add
   aa = add --all
-  d = difftool --no-symlinks --dir-diff
-  dc = difftool --no-symlinks --dir-diff --cached
+  d = diff
+  dc = diff --cached
   pl = pull
   pu = push
   puf = push --force
@@ -52,7 +52,7 @@
   diffFilter = delta --color-only
 [delta]
   navigate = true
-  light = false
+  dark = true
 [merge]
   conflictstyle = diff3
 [diff]
