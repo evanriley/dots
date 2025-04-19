@@ -1,3 +1,10 @@
+#+title: Doom Emacs
+#+author: Evan Riley
+
+* Rudimentary stuff
+** Defaults
+*** Go fast
+#+begin_src emacs-lisp
 (use-package! gcmh
   :init
   (setq gcmh-idle-delay 10
@@ -9,15 +16,27 @@
 (setq process-adaptive-read-buffering nil)
 (setq inhibit-compacting-font-caches t)
 (setq redisplay-skip-fontification-on-input t)
+#+end_src
 
+*** Basic Requirements
+**** Name
+Various packages require some personal information.
+#+begin_src emacs-lisp
 (setq user-full-name "Evan Riley"
       user-real-login-name "Evan Riley"
       user-login-name "evan"
       user-mail-address (rot13 "rina@rinaevyrl.arg"))
+#+end_src
 
+*** Authinfo
+Store this in my home directory, otherwise it will get lost
+#+begin_src emacs-lisp
 (setq auth-sources '("~/.authinfo.asc")
       auth-source-cache-expiry nil) ; default is 7200 (2h)
+#+end_src
 
+*** General Defaults
+#+begin_src emacs-lisp
 (setq-default
  delete-by-moving-to-trash t                      ; Delete files to trash
  window-combination-resize t                      ; take new window space from all other windows (not just current)
@@ -51,14 +70,30 @@
 (after! evil
   (map! :nvmo "k" #'evil-previous-visual-line
         :nvmo "j" #'evil-next-visual-line))
+#+end_src
 
+*** Emacs
+**** Whitespace
+Rid me of the trailing whitespaces
+#+begin_src emacs-lisp
 (add-hook 'before-save-hook #'whitespace-cleanup)
-
+#+end_src
+**** Spaces
+Don't add two spaces after a period. It's weird.
+#+begin_src emacs-lisp
 (setq-default sentence-end-double-space nil)
+#+end_src
 
+**** Tabs
+Don't use tabs. Just spaces. I can re-enable them by using a =.dir-locals.el= file. Or through an LSP setting.
+#+begin_src emacs-lisp
 (setq-default indent-tabs-mode nil)
 (add-hook 'prog-mode-hook (lambda () (setq indent-tabs-mode nil)))
+#+end_src
 
+**** Backup files
+Please emacs, stop littering everywhere.
+#+begin_src emacs-lisp
 ;; Disable backup files everywhere
 (setq make-backup-files nil)
 (setq backup-inhibited t)
@@ -67,40 +102,84 @@
       delete-old-versions t
       kept-old-versions 0
       kept-new-versions 0)
+#+end_src
 
+**** Emacsclient
+If we use an Emacslient, just reuse the already open workspace instead of creating a new one.
+#+begin_src emacs-lisp
 (after! persp-mode
   (setq persp-emacsclient-init-frame-behaviour-override "main"))
-
+#+end_src
+**** Customizations
+By default changes made via a customization are added to init.el. I would rather have these in a seperate file.
+#+begin_src emacs-lisp
 (setq-default custom-file (expand-file-name ".custom.el" doom-private-dir))
 (when (file-exists-p custom-file)
   (load custom-file))
+#+end_src
 
+* Eye Candy
+** Theme
+
+First let's install the theme
+#+begin_src emacs-lisp :tangle packages.el
+(package! catppuccin-theme)
+#+end_src
+
+Then we can use it
+#+begin_src emacs-lisp
 (setq doom-theme 'catppuccin)
+#+end_src
 
+** Fonts
+We use [[https://usgraphics.com/products/berkeley-mono][Berkeley Mono]] here for most of our font faces.
+#+begin_src emacs-lisp
 (setq doom-font (font-spec :family "Berkeley Mono" :size 14)
       doom-big-font (font-spec :family "Berkeley Mono" :size 24)
       doom-variable-pitch-font (font-spec :family "Overpass" :size 24)
       doom-symbol-font (font-spec :family "JuliaMono" :size 14)
       doom-emoji-font (font-spec :family "Twitter Color Emoji")
       doom-serif-font (font-spec :family "IBM Plex Mono" :size 22 :weight 'light))
+#+end_src
 
+Some font rendering performance changes
+#+begin_src emacs-lisp
 (setq inhibit-compacting-font-caches t)    ; Never compact font caches
 (setq font-lock-maximum-decoration 2)       ; Reduce syntax highlighting complexity
 (setq jit-lock-defer-time 0.05)            ; Shorter delay for fontification
+#+end_src
 
+** Line numbers
+I like relative line numbers everywhere.
+#+begin_src emacs-lisp
 (setq display-line-numbers 'relative)
 (setq display-line-numbers-type 'visual)          ; Move through visual lines
+#+end_src
 
+** 80 Character Column
+#+begin_src emacs-lisp
 (setq display-fill-column-indicator-column 80)
 (add-hook 'prog-mode-hook #'display-fill-column-indicator-mode)
+#+end_src
 
+** Buttery Smooth Scrolling
+#+begin_src emacs-lisp :tangle packages.el
+(package! ultra-scroll
+  :recipe (:host github :repo "jdtsmith/ultra-scroll"))
+#+end_src
+
+#+begin_src emacs-lisp
 (use-package! ultra-scroll
   :init
   (setq scroll-conservatively 101  ; important!
         scroll-margin 0)
   :config
   (ultra-scroll-mode 1))
+#+end_src
 
+** Window title
+Shamelessly stolen from tecosaur
+#+begin_src emacs-lisp
 (setq frame-title-format
       '(""
         (:eval
@@ -114,9 +193,242 @@
          (when-let ((project-name (and (featurep 'projectile) (projectile-project-name))))
            (unless (string= "-" project-name)
              (format (if (buffer-modified-p)  " ◉ %s" "  ●  %s") project-name))))))
+#+end_src
 
+** Visual Bell
+Visual feedback when I try to do something emacs doesn't like.
+#+begin_src emacs-lisp
 (setq visible-bell t)
+#+end_src
 
+* Doom Modules
+Here we setup the doom ~init.el~ and configure the modules
+It doesn't really matter how much you enable here, lazy loading will handle it.
+** Module list
+#+begin_src emacs-lisp :tangle init.el
+;;; init.el -*- lexical-binding: t; -*-
+(doom! :input
+       ;;bidi              ; (tfel ot) thgir etirw uoy gnipleh
+       ;;chinese
+       ;;japanese
+       ;;layout            ; auie,ctsrnm is the superior home row
+
+       :completion
+       ;;company           ; the ultimate code completion backend
+       (corfu              ; complete with cap(f), cape and a flying feather!
+        +icons
+        +orderless)
+       ;;helm              ; the *other* search engine for love and life
+       ;;ido               ; the other *other* search engine...
+       ;;ivy               ; a search engine for love and life
+       (vertico           ; the search engine of the future
+        +icons)
+
+       :ui
+       ;;deft              ; notational velocity for Emacs
+       doom              ; what makes DOOM look the way it does
+       doom-dashboard    ; a nifty splash screen for Emacs
+       ;;doom-quit         ; DOOM quit-message prompts when you quit Emacs
+       (emoji              ; 🙂
+        +github
+        +unicode)
+       ;;hl-todo           ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
+       ;;indent-guides     ; highlighted indent columns
+       ligatures         ; ligatures and symbols to make your code pretty again
+       ;;minimap           ; show a map of the code on the side
+       modeline          ; snazzy, Atom-inspired modeline, plus API
+       ;;nav-flash         ; blink cursor line after big motions
+       ;;neotree           ; a project drawer, like NERDTree for vim
+       ophints           ; highlight the region an operation acts on
+       (popup +defaults)   ; tame sudden yet inevitable temporary windows
+       ;;tabs              ; a tab bar for Emacs
+       ;;treemacs          ; a project drawer, like neotree but cooler
+       ;;unicode           ; extended unicode support for various languages
+       (vc-gutter +pretty) ; vcs diff in the fringe
+       vi-tilde-fringe   ; fringe tildes to mark beyond EOB
+       ;;window-select     ; visually switch windows
+       workspaces        ; tab emulation, persistence & separate workspaces
+       ;;zen               ; distraction-free coding or writing
+
+       :editor
+       (evil +everywhere); come to the dark side, we have cookies
+       file-templates    ; auto-snippets for empty files
+       fold              ; (nigh) universal code folding
+       (format           ; automated prettiness
+        +onsave
+        +lsp)
+       ;;god               ; run Emacs commands without modifier keys
+       ;;lispy             ; vim for lisp, for people who don't like vim
+       ;;multiple-cursors  ; editing in many places at once
+       ;;objed             ; text object editing for the innocent
+       parinfer          ; turn lisp into python, sort of
+       ;;rotate-text       ; cycle region at point between text candidates
+       snippets          ; my elves. They type so I don't have to
+       ;;word-wrap         ; soft wrapping with language-aware indent
+
+       :emacs
+       (dired             ; making dired pretty [functional]
+        +dirvish)
+       electric          ; smarter, keyword-based electric-indent
+       ;;eww               ; the internet is gross
+       ;;ibuffer           ; interactive buffer management
+       undo              ; persistent, smarter undo for your inevitable mistakes
+       vc                ; version-control and Emacs, sitting in a tree
+
+       :term
+       ;;eshell            ; the elisp shell that works everywhere
+       ;;shell             ; simple shell REPL for Emacs
+       ;;term              ; basic terminal emulator for Emacs
+       vterm             ; the best terminal emulation in Emacs
+
+       :checkers
+       syntax              ; tasing you for every semicolon you forget
+       (spell +enchant) ; tasing you for misspelling mispelling
+       ;;grammar           ; tasing grammar mistake every you make
+
+       :tools
+       ;;ansible
+       ;;biblio            ; Writes a PhD for you (citation needed)
+       ;;collab            ; buffers with friends
+       ;;debugger          ; FIXME stepping through code, to help you add bugs
+       direnv
+       ;;docker
+       editorconfig      ; let someone else argue about tabs vs spaces
+       ;;ein               ; tame Jupyter notebooks with emacs
+       (eval +overlay)     ; run code, run (also, repls)
+       lookup              ; navigate your code and its documentation
+       lsp               ; M-x vscode
+       (magit             ; a git porcelain for Emacs
+        +forge)
+       ;;make              ; run make tasks from Emacs
+       ;;pass              ; password manager for nerds
+       ;;pdf               ; pdf enhancements
+       ;;prodigy           ; FIXME managing external services & code builders
+       ;;terraform         ; infrastructure as code
+       ;;tmux              ; an API for interacting with tmux
+       tree-sitter       ; syntax and parsing, sitting in a tree...
+       ;;upload            ; map local to remote projects via ssh/ftp
+
+       :os
+       (:if (featurep :system 'macos) macos)  ; improve compatibility with macOS
+       ;;tty               ; improve the terminal Emacs experience
+
+       :lang
+       ;;agda              ; types of types of types of types...
+       ;;beancount         ; mind the GAAP
+       (cc                 ; C > C++ == 1
+        +tree-sitter
+        +lsp)
+       (clojure           ; java with a lisp
+        +tree-sitter
+        +lsp)
+       common-lisp       ; if you've seen one lisp, you've seen them all
+       ;;coq               ; proofs-as-programs
+       ;;crystal           ; ruby at the speed of c
+       ;;csharp            ; unity, .NET, and mono shenanigans
+       data              ; config/data formats
+       ;;(dart +flutter)   ; paint ui and not much else
+       ;;dhall
+       ;;(elixir            ; erlang done right
+       ;; +lsp
+        ;;+tree-sitter)
+       ;;elm               ; care for a cup of TEA?
+       emacs-lisp        ; drown in parentheses
+       ;; (erlang            ; an elegant language for a more civilized age
+       ;;  +lsp
+       ;;  +tree-sitter)
+       ;;ess               ; emacs speaks statistics
+       ;;factor
+       ;;faust             ; dsp, but you get to keep your soul
+       ;;fortran           ; in FORTRAN, GOD is REAL (unless declared INTEGER)
+       ;;fsharp            ; ML stands for Microsoft's Language
+       ;;fstar             ; (dependent) types and (monadic) effects and Z3
+       ;;gdscript          ; the language you waited for
+       (go                 ; the hipster dialect
+        +tree-sitter
+        +lsp)
+       ;;(graphql +lsp)    ; Give queries a REST
+       ;;(haskell +lsp)    ; a language that's lazier than I am
+       ;;hy                ; readability of scheme w/ speed of python
+       ;;idris             ; a language you can depend on
+       json                ; At least it ain't XML
+       (java               ; the poster child for carpal tunnel syndrome
+        +tree-sitter
+        +lsp)
+       (javascript        ; all(hope(abandon(ye(who(enter(here))))))
+        +lsp
+        +tree-sitter)
+       ;;julia             ; a better, faster MATLAB
+       ;;kotlin            ; a better, slicker Java(Script)
+       ;;latex             ; writing papers in Emacs has never been so fun
+       ;;lean              ; for folks with too much to prove
+       ;;ledger            ; be audit you can be
+       (lua               ; one-based indices? one-based indices
+        +lsp
+        +fennel
+        +tree-sitter)
+       markdown          ; writing docs for people to ignore
+       ;;nim               ; python + lisp at the speed of c
+       ;;nix               ; I hereby declare "nix geht mehr!"
+       ;; (ocaml             ; an objective camel
+       ;;  +lsp
+       ;;  +tree-sitter)
+       (org               ; organize your plain life in plain text
+        +roam2
+        +journal
+        +pandoc
+        +present
+        +pretty)
+       ;;php               ; perl's insecure younger brother
+       ;;plantuml          ; diagrams for confusing people more
+       ;;graphviz          ; diagrams for confusing yourself even more
+       ;;purescript        ; javascript, but functional
+       ;;python            ; beautiful is better than ugly
+       ;;qt                ; the 'cutest' gui framework ever
+       ;;racket            ; a DSL for DSLs
+       ;;raku              ; the artist formerly known as perl6
+       rest              ; Emacs as a REST client
+       ;;rst               ; ReST in peace
+       ;;(ruby +rails)     ; 1.step {|i| p "Ruby is #{i.even? ? 'love' : 'life'}"}
+       (rust               ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
+        tree-sitter
+        +lsp)
+       ;;scala             ; java, but good
+       ;;(scheme +guile)   ; a fully conniving family of lisps
+       sh                ; she sells {ba,z,fi}sh shells on the C xor
+       ;;sml
+       ;;solidity          ; do you need a blockchain? No.
+       ;;swift             ; who asked for emoji variables?
+       ;;terra             ; Earth and Moon in alignment for performance.
+       (web               ; the tubes
+        +lsp
+        +tree-sitter)
+       yaml              ; JSON, but readable
+       (zig               ; C, but simpler
+        +lsp
+        +tree-sitter)
+
+       :email
+       (mu4e +mbsync)
+       ;;notmuch
+       ;;(wanderlust +gmail)
+
+       :app
+       ;;calendar
+       ;;emms
+       ;;everywhere        ; *leave* Emacs!? You must be joking
+       ;;irc               ; how neckbeards socialize
+       (rss +org)        ; emacs as an RSS reader
+
+       :config
+       literate
+       (default +bindings +smartparens))
+#+end_src
+
+** UI
+*** Modeline
+You guessed it, stolen from tecosaur
+#+begin_src emacs-lisp
 (defun modeline-contitional-buffer-encoding ()
   "Hide \"LF UTF-8\" in modeline.
 It is expected of files to be encoded with LF UTF-8, so only show
@@ -130,14 +442,45 @@ the user."
 (setq doom-modeline-enable-word-count nil)      ; Disable word counting
 (setq doom-modeline-continuous-word-count-modes nil)
 (setq doom-modeline-checker-simple-format t)    ; Simpler checker format
+#+end_src
 
+#+begin_src emacs-lisp
 (add-hook 'after-change-major-mode-hook #'modeline-contitional-buffer-encoding)
+#+end_src
 
+** Lang
+*** Org Mode
+This is going to be a big one.
+**** General
+Let's unpin org-mode and install the nice org-contrib package
+
+#+begin_src emacs-lisp :tangle packages.el
+(unpin! org)
+(package! org-contrib
+  ;; The `sr.ht' repo has been a bit flaky as of late.
+  :recipe (:host github :repo "emacsmirror/org-contrib"
+           :files ("lisp/*.el"))
+  :pin "351c71397d893d896a47ad7e280607b4d59b84e4")
+#+end_src
+
+Get roam-ui and org-modern packages
+#+begin_src emacs-lisp :tangle packages.el
+(package! org-roam-ui)
+(package! org-modern)
+#+end_src
+
+Set the org directory
+#+begin_src emacs-lisp
 (setq org-directory "~/Sync/org/")
+#+end_src
 
+Keep the org agenda files in the main org directoy
+#+begin_src emacs-lisp
 (defvar org-agenda-files nil)
 (add-to-list 'org-agenda-files org-directory)
+#+end_src
 
+#+begin_src emacs-lisp
 (after! org
   (setq org-todo-keywords '((sequence "TODO(t)" "NEXT(n)" "WAITING(w)" "ONHOLD(h)" "|" "DONE(d)")
                             (sequence "EMAIL(e)" "|" "SENT(s)")
@@ -184,18 +527,37 @@ the user."
       :n "g <down>" #'org-forward-heading-same-level
       :n "g <left>" #'org-up-element
       :n "g <right>" #'org-down-element))
+#+end_src
 
+Archive to subdirectory and use datetree
+#+begin_src emacs-lisp
 (after! org-archive
   (setq org-archive-location "archive/%s_archive::datetree/"))
+#+end_src
 
+Remove empty clock lines, they achieve nothing.
+#+begin_src emacs-lisp
 (after! org-clock
   (setq org-clock-out-remove-zero-time-clocks t))
+#+end_src
 
+**** List bullet sequence
+#+begin_src emacs-lisp
 (setq org-list-demote-modify-bullet '(("+" . "-") ("-" . "+") ("*" . "+") ("1." . "a.")))
-
+#+end_src
+**** Capture
+doct (declaritive org capture templates)
+#+begin_src emacs-lisp :tangle packages.el
+(package! doct
+  :recipe (:host github :repo "progfolio/doct")
+  :pin "5cab660dab653ad88c07b0493360252f6ed1d898")
+#+end_src
+#+begin_src emacs-lisp
 (use-package! doct
   :commands doct)
+#+end_src
 
+#+begin_src emacs-lisp
 (after! org-capture
   (defun org-capture-select-template-prettier (&optional keys)
   "Select a capture template, in a prettier way than default
@@ -467,14 +829,32 @@ is selected, only the bare key is returned."
         (set-window-parameter nil 'mode-line-format 'none)
         (org-capture)))
 
+
+#+end_src
+
+**** Org-Roam
+Notes Directory
+#+begin_src emacs-lisp
 (setq org-roam-directory (concat (file-name-as-directory org-directory) "Notes/"))
+#+end_src
 
+Keep the org-roam.db with the doom cache directory. It can easily be rebuilt and I don't need it synced
+#+begin_src emacs-lisp
 (setq org-roam-db-location (concat doom-cache-dir "org-roam.db"))
+#+end_src
 
+Turn off verbosity
+#+begin_src emacs-lisp
 (setq org-roam-verbose nil)
+#+end_src
 
+Ensure tags from both the directory and the =roam_tag= property
+#+begin_src emacs-lisp
 (setq org-roam-tag-sources '(prop all-directories))
+#+end_src
 
+Daily note template
+#+begin_src emacs-lisp
 (setq org-roam-dailies-capture-templates
       '(("d" "default" entry "* %?"
          :if-new (file+head
@@ -483,12 +863,21 @@ is selected, only the bare key is returned."
          :unnarrowed t
          :immediate-finish t
          :jump-to-captured t)))
+#+end_src
 
+Update the database on file change. Otherwise it happens on a timer and sometimes I get weird bugs.
+#+begin_src emacs-lisp
 (setq org-roam-db-update-method 'immediate)
+#+end_src
 
+Case insensitive completion
+#+begin_src emacs-lisp
 (add-hook! 'org-roam-file-setup-hook
   (setq-local completion-ignore-case t))
+#+end_src
 
+Rename files when the title is changed
+#+begin_src emacs-lisp
 (with-eval-after-load 'org-roam
   (add-hook! 'after-save-hook
     (defun org-rename-to-new-title ()
@@ -507,7 +896,10 @@ is selected, only the bare key is returned."
         (rename-file old-file new-file)
         (set-visited-file-name new-file)
         (set-buffer-modified-p nil)))))
+#+end_src
 
+Modeline file name
+#+begin_src emacs-lisp
 (defadvice! doom-modeline--buffer-file-name-roam-aware-a (orig-fun)
   :around #'doom-modeline-buffer-file-name ; takes no args
   (if (s-contains-p org-roam-directory (or buffer-file-name ""))
@@ -516,14 +908,26 @@ is selected, only the bare key is returned."
        "🢔(\\1-\\2-\\3) "
        (subst-char-in-string ?_ ?  buffer-file-name))
     (funcall orig-fun)))
+#+end_src
 
+Configure the webui
+#+begin_src emacs-lisp
 (use-package org-roam-ui
   :after org-roam
   :hook (after-init . org-roam-ui-mode))
+#+end_src
 
+**** Agenda
+We're going to use org-super-agenda
+#+begin_src emacs-lisp :tangle packages.el
+(package! org-super-agenda :pin "51c9da5ce7b791150758984bab469d2222516844")
+#+end_src
+#+begin_src emacs-lisp
 (use-package! org-super-agenda
   :commands org-super-agenda-mode)
+#+end_src
 
+#+begin_src emacs-lisp
 (after! org-agenda
   (let ((inhibit-message t))
     (org-super-agenda-mode)))
@@ -595,6 +999,12 @@ is selected, only the bare key is returned."
                            :order 90)
                           (:discard (:tag ("Chore" "Routine" "Daily")))))))))))
 
+
+#+end_src
+
+**** Org Modern
+Let's make org-mode a little pretty
+#+begin_src emacs-lisp
 (use-package! org-modern
   :hook (org-mode . org-modern-mode)
   :config
@@ -670,6 +1080,13 @@ is selected, only the bare key is returned."
 (after! spell-fu
   (cl-pushnew 'org-modern-tag (alist-get 'org-mode +spell-excluded-faces-alist)))
 
+#+end_src
+**** Emphasis markers
+#+begin_src emacs-lisp :tangle packages.el
+(package! org-appear :recipe (:host github :repo "awth13/org-appear")
+  :pin "81eba5d7a5b74cdb1bad091d85667e836f16b997")
+#+end_src
+#+begin_src emacs-lisp
 (use-package! org-appear
   :hook (org-mode . org-appear-mode)
   :config
@@ -679,7 +1096,14 @@ is selected, only the bare key is returned."
   ;; for proper first-time setup, `org-appear--set-elements'
   ;; needs to be run after other hooks have acted.
   (run-at-time nil nil #'org-appear--set-elements))
+#+end_src
 
+**** Heading structure
+#+begin_src emacs-lisp :tangle packages.el
+(package! org-ol-tree :recipe (:host github :repo "Townk/org-ol-tree")
+  :pin "207c748aa5fea8626be619e8c55bdb1c16118c25")
+#+end_src
+#+begin_src emacs-lisp
 (use-package! org-ol-tree
   :commands org-ol-tree
   :config
@@ -694,12 +1118,22 @@ is selected, only the bare key is returned."
       :after org
       :localleader
       :desc "Outline" "O" #'org-ol-tree)
+#+end_src
 
+**** HTTP Request
+
+#+begin_src emacs-lisp :tangle packages.el
+(package! ob-http :pin "b1428ea2a63bcb510e7382a1bf5fe82b19c104a7")
+#+end_src
+#+begin_src emacs-lisp
 (use-package! ob-http
   :commands org-babel-execute:http)
-
+#+end_src
+**** Font Display
+#+begin_src emacs-lisp
 (add-hook 'org-mode-hook #'+org-pretty-mode)
-
+#+end_src
+#+begin_src emacs-lisp
 (custom-set-faces!
   '(outline-1 :weight extra-bold :height 1.25)
   '(outline-2 :weight bold :height 1.15)
@@ -709,18 +1143,25 @@ is selected, only the bare key is returned."
   '(outline-6 :weight semi-bold :height 1.03)
   '(outline-8 :weight semi-bold)
   '(outline-9 :weight semi-bold))
-
+#+end_src
+#+begin_src emacs-lisp
 (custom-set-faces!
   '(org-document-title :height 1.2))
+#+end_src
 
+#+begin_src emacs-lisp
 (setq org-agenda-deadline-faces
       '((1.001 . error)
         (1.0 . org-warning)
         (0.5 . org-upcoming-deadline)
         (0.0 . org-upcoming-distant-deadline)))
-
+#+end_src
+#+begin_src emacs-lisp
 (setq org-fontify-quote-and-verse-blocks t)
+#+end_src
 
+Defer font locking
+#+begin_src emacs-lisp
 (defun locally-defer-font-lock ()
   "Set jit-lock defer and stealth, when buffer is over a certain size."
   (when (> (buffer-size) 50000)
@@ -728,7 +1169,10 @@ is selected, only the bare key is returned."
                 jit-lock-stealth-time 1)))
 
 (add-hook 'org-mode-hook #'locally-defer-font-lock)
+#+end_src
 
+**** Reduced Text Indent
+#+begin_src emacs-lisp
 (defadvice! +org-indent--reduced-text-prefixes ()
   :after #'org-indent--compute-prefixes
   (setq org-indent--text-line-prefixes
@@ -744,7 +1188,9 @@ is selected, only the bare key is returned."
                              (char-to-string org-indent-boundary-char)
                           "\u200b"))
                 nil 'face 'org-indent)))))
-
+#+end_src
+**** Symbols
+#+begin_src emacs-lisp
 (setq org-ellipsis " ▾ "
       org-hide-leading-stars t
       org-priority-highest ?A
@@ -755,7 +1201,8 @@ is selected, only the bare key is returned."
         (?C . 'nerd-icons-yellow)
         (?D . 'nerd-icons-green)
         (?E . 'nerd-icons-blue)))
-
+#+end_src
+#+begin_src emacs-lisp
 (appendq! +ligatures-extra-symbols
           (list :list_property "∷"
                 :em_dash       "—"
@@ -788,11 +1235,28 @@ is selected, only the bare key is returned."
     :priority_c    "[#C]"
     :priority_d    "[#D]"
     :priority_e    "[#E]"))
-
+#+end_src
+**** Exporting
+#+begin_src emacs-lisp
 (setq org-export-headline-levels 5)
+#+end_src
+*** Go
+Disable go-eldoc
+#+begin_src emacs-lisp :tangle packages.el
+(package! go-eldoc :disable t)
+#+end_src
 
+** Term
+*** Vterm
+#+begin_src emacs-lisp
 (setq vterm-shell "fish")
+#+end_src
 
+** Mail
+*** Mu4e
+
+Let's read our emails inside emacs
+#+begin_src emacs-lisp
 (after! mu4e
     (setq mu4e-change-filenames-when-moving t
         mu4e-maildir "~/.maildir/"
@@ -898,6 +1362,10 @@ is selected, only the bare key is returned."
     (if (string= (daemonp) "server")
         (setenv "INSIDE_EMACS" "true")))
 
+#+end_src
+
+Immediately update database and remote after I execute marks.
+#+begin_src emacs-lisp
 (after! mu4e
 
   (defun my-mu4e-mark-execute-advice (&rest _)
@@ -913,17 +1381,30 @@ is selected, only the bare key is returned."
   ;; Add advice to run after mark execution
   (advice-add 'mu4e-mark-execute-all :after #'my-mu4e-mark-execute-advice))
 
+#+end_src
+
+** Projects
+#+begin_src emacs-lisp
 (after! projectile
   (setq projectile-enable-caching t)           ; Enable project file caching
   (setq projectile-indexing-method 'alien)     ; Use external tools for indexing
   (setq projectile-files-cache-expire 604800)
   (setq projectile-project-search-path '("~/Code/Personal/" "~/Code/Work/")
         projectile-auto-discover t))
+#+end_src
 
+** Editor
+*** LSP
+Just some LSP performance boosts
+#+begin_src emacs-lisp
 (after! lsp-mode
   (setq lsp-idle-delay 0.5)                    ; Delay before processing
   (setq lsp-file-watch-threshold 2000))        ; Limit watched files
+#+end_src
 
+*** Scroll Margins
+Sets top and bottom scroll margins dynamically based on window size
+#+begin_src emacs-lisp
 (defun my/define-scroll-margins ()
   "Set the scroll margins dynamically based on the current window height."
   (let ((minimum-window-height 14))
@@ -933,3 +1414,4 @@ is selected, only the bare key is returned."
                 0
               (floor (* (window-body-height) (* percent-margin 2))))))))
 (add-hook 'window-configuration-change-hook #'my/define-scroll-margins)
+#+end_src

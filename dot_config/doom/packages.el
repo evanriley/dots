@@ -1,17 +1,11 @@
-(package! auto-dark)
+(package! catppuccin-theme)
 
 (package! ultra-scroll
   :recipe (:host github :repo "jdtsmith/ultra-scroll"))
 
-(package! copilot
-  :recipe (:host github :repo "copilot-emacs/copilot.el" :files ("*.el")))
-
-(package! copilot-chat
-  :recipe (:host github :repo "chep/copilot-chat.el" :files ("*.el")))
-
 (unpin! org)
-
 (package! org-contrib
+  ;; The `sr.ht' repo has been a bit flaky as of late.
   :recipe (:host github :repo "emacsmirror/org-contrib"
            :files ("lisp/*.el"))
   :pin "351c71397d893d896a47ad7e280607b4d59b84e4")

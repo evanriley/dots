@@ -20,12 +20,13 @@ alias ls eza
 alias cat bat
 alias du dust
 
-## fast clj repl
 alias clj-repl 'clj "-J-Dclojure.server.repl={:port 5555 :accept clojure.core.server/repl :server-daemon false}"'
 
 alias dots 'git --git-dir=$HOME/.dots/ --work-tree=$HOME'
 
-# use `z` to move around
+alias kdev="kitty --session ~/.config/kitty/sessions/dev.conf"
+alias kmon="kitty --session ~/.config/kitty/sessions/monitor.conf"
+
 zoxide init fish | source
 mise activate fish | source
 starship init fish | source

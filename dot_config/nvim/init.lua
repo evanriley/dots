@@ -76,6 +76,7 @@ end)
 add({ source = "catppuccin/nvim" })
 now(function()
   vim.api.nvim_set_option_value("background", "dark", {})
+  vim.opt.termguicolors = true
   vim.cmd("colorscheme catppuccin-mocha")
 end)
 
@@ -181,6 +182,9 @@ later(function()
     },
   })
 end)
+
+-- window movement
+add({ source = "knubie/vim-kitty-navigator" })
 
 -- =============================================================================
 -- LSP CONFIGURATION

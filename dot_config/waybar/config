@@ -1,5 +1,6 @@
 {
-    "layer": "top", // Waybar at top layer
+    "layer": "overlay", // Waybar at top layer
+    "exclusive": false,
     "position": "bottom", // Waybar position (top|bottom|left|right)
     "modules-left": ["niri/workspaces", "niri/window"],
     "modules-center": ["mpris"],
