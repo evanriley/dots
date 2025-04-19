@@ -12,27 +12,11 @@ border-size=1
 border-radius=4
 
 [mode=default]
-border-color=#424242
-background-color=#000000
-text-color=#FFFFFF
-progress-color=over #2e2e2e
-anchor=bottom-center
+background-color=#1e1e2e
+text-color=#cdd6f4
+border-color=#89b4fa
+progress-color=over #313244
+anchor=bottom-right
 
-[mode=dark]
-border-color=#424242
-background-color=#000000
-text-color=#FFFFFF
-progress-color=over #2e2e2e
-anchor=bottom-center
-
-[mode=light]
-border-color=#424242
-background-color=#FFFFFF
-text-color=#000000
-progress-color=over #2e2e2e
-anchor=bottom-center
-
-[urgency=critical]
-border-color=#b66467
-default-timeout=0
-
+[urgency=high]
+border-color=#fab387

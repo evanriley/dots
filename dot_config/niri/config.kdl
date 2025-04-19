@@ -119,9 +119,6 @@ spawn-at-startup "swayosd-server" "-s" "~/.config/swayosd/style.css"
 
 environment {
   DISPLAY ":0"
-  LIBVA_DRIVER_NAME "nvidia"
-  __GLX_VENDOR_LIBRARY_NAME "nvidia"
-  NVD_BACKEND "direct"
 }
 
 prefer-no-csd
@@ -157,6 +154,11 @@ window-rule {
 
 window-rule {
   match app-id="com.mitchellh.ghostty"
+  default-column-width { proportion 0.25; }
+}
+
+window-rule {
+  match app-id="kitty"
   default-column-width { proportion 0.25; }
 }
 
@@ -225,7 +227,7 @@ binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
 
     // Suggested binds for running programs: terminal, app launcher, screen locker.
-    Mod+Return { spawn "ghostty"; }
+    Mod+Return { spawn "kitty"; }
     Mod+Space { spawn "fuzzel"; }
     Super+Alt+L { spawn "hyprlock"; }
 

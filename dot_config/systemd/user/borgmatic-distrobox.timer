@@ -1,0 +1,14 @@
+[Unit]
+Description=Run borgmatic backup daily at noon via Distrobox
+
+[Timer]
+# Run daily at 12:00:00 (noon)
+OnCalendar=*-*-* 12:00:00
+# Run shortly after boot if the scheduled time was missed
+Persistent=true
+# Add random delay up to 1 hour to prevent thundering herd
+RandomizedDelaySec=1h
+AccuracySec=1h
+
+[Install]
+WantedBy=timers.target

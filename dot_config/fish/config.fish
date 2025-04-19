@@ -10,13 +10,11 @@ alias emacs emacsclient
 
 alias cd.. 'cd ..'
 alias .. 'cd ..'
-alias ... 'cd ../../../'
-alias .... 'cd ../../../../'
-alias ..... 'cd ../../../../'
-alias .4 'cd ../../../../'
-alias .5 'cd ../../../../..'
+alias ... 'cd ../../'
+alias .... 'cd ../../../'
+alias ..... 'cd ../..//../'
 
-alias myip "curl -6 https://ifconfig.co; echo"
+alias myip "curl ifconfig.co; echo"
 
 alias ls eza
 alias cat bat
@@ -29,3 +27,5 @@ alias dots 'git --git-dir=$HOME/.dots/ --work-tree=$HOME'
 
 # use `z` to move around
 zoxide init fish | source
+mise activate fish | source
+starship init fish | source
