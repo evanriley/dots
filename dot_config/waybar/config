@@ -1,76 +1,65 @@
 {
-    "layer": "overlay", // Waybar at top layer
-    "exclusive": false,
-    "position": "bottom", // Waybar position (top|bottom|left|right)
-    "modules-left": ["niri/workspaces", "niri/window"],
-    "modules-center": ["mpris"],
-    "modules-right": ["pulseaudio", "custom/weather", "clock", "tray", "custom/power"],
-    "niri/workspaces": {
-         "disable-scroll": true,
-         "sort-by-name": true,
-         "format": " {icon} ",
-         "format-icons": {
-             "default": "",
-         },
-    },
-    "niri/window": {
-      "format": "{title}",
-      "rewrite": {
-         "(.*) — Mozilla Firefox": "$1 - Firefox",
-      },
-      "tooltip": false
-    },
-    "tray": {
-        "icon-size": 21,
-        "spacing": 10
-    },
-    "mpris": {
-      "format": "{player_icon} {artist} - {title}",
-        "format-paused": "{status_icon} {artist} - {title}",
-      "player-icons": {
-        "default": "<span font='12'></span>",
-        "mpv": "🎵"
-      },
-      "status-icons": {
-        "paused": "<span font='12'>󰏦</span>",
-      },
-      "ignored-players": ["firefox"],
+    "layer": "top",
+    "position": "bottom",
+    "mode": "overlay",
+    "start_hiden": true,
+    "height": 24,
+    "spacing": 5,
+
+    "modules-left": ["hyprland/workspaces", "memory"],
+    "modules-center": ["clock"],
+    "modules-right": ["wireplumber", "network", "bluetooth", "tray"],
+
+    "hyprland/workspaces": {
+        "format": "<span size='larger'>{icon}</span>",
+        "on-click": "activate",
+        "format-icons": {
+            "active": "\uf444",
+            "default": "\uf4c3"
+        },
+        "icon-size": 10,
+        "sort-by-number": true,
+        "persistent-workspaces": {
+            "1": [],
+            "2": [],
+            "3": [],
+            "4": [],
+            "5": [],
+        }
     },
     "clock": {
-      "format": "󰅐 {:%B %d, %Y %I:%M %p}",
-      "format-alt": "󰅐 {:%OI:%M %p}",
-      "tooltip-format": " {:%A %m/%d}\n\n<tt><small>{calendar}</small></tt>",
-      "calendar": {
-          "on-scroll": 1,
-          "format": {
-              "months":     "<span color='#ffead3'><b>{}</b></span>",
-              "days":       "<span color='#ecc6d9'><b>{}</b></span>",
-              "weeks":      "<span color='#99ffdd'><b>W{}</b></span>",
-              "weekdays":   "<span color='#ffcc66'><b>{}</b></span>",
-              "today":      "<span color='#ff6699'><b><u>{}</u></b></span>"
-          },
-      },
-      "actions": {
-          "on-scroll-up": "shift_up",
-          "on-scroll-down": "shift_down"
-      },
+        "format": "{:%B %d, %Y | %I:%M %p}"
     },
-    "pulseaudio": {
-        // "scroll-step": 1, // %, can be a float
-        "format": "{icon} {volume}%",
-        "format-muted": "",
-        "format-icons": {
-            "default": ["", "", " "]
-        },
-        "on-click": "pavucontrol"
+    "wireplumber": {
+        "format": "\udb81\udd7e  {volume}%",
+        "max-volume": 100,
+        "scroll-step": 5
     },
-    "custom/weather": {
-      "exec": "curl 'https://wttr.in/?u&format=1'",
-      "interval": 3600
+    "memory": {
+        "interval": 30,
+        "format": "\uf4bc  {used:0.1f}G"
     },
-    "custom/power": {
-      "format":"⏻",
-      "on-click": "exec ~/.config/scripts/power_menu.sh",
-      "tooltip": false
+    "network": {
+        "format": "",
+        "format-ethernet": "\udb83\udc9d",
+        "format-wifi": "{icon}",
+        "format-disconnected": "\udb83\udc9c",
+        "format-icons": ["\udb82\udd2f", "\udb82\udd1f", "\udb82\udd22", "\udb82\udd25", "\udb82\udd28"],
+        "tooltip-format-wifi": "{essid} ({signalStrength}%)",
+        "tooltip-format-ethernet": "{ifname}",
+        "tooltip-format-disconnected": "Disconnected",
+    },
+
+    "bluetooth": {
+        "format": "\udb80\udcaf",
+        "format-disabled": "\udb80\udcb2",
+        "format-connected": "\udb80\udcb1",
+        "tooltip-format": "{controller_alias}\t{controller_address}",
+        "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
+        "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}"
+    },
+    "tray": {
+        "icon-size": 16,
+        "spacing": 16
     }
 }
