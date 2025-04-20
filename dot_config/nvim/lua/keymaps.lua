@@ -125,7 +125,7 @@ keymap("n", "<leader>qk", "<cmd>cprev<CR>zz")
 
 -- [[ UI Keymaps ]]
 ---- Window Navigation
-keymap("n", "<C-l>", "<cmd>KittyNavigateRight<cr>")
-keymap("n", "<C-k>", "<cmd>KittyNavigateUp<cr>")
-keymap("n", "<C-j>", "<cmd>KittyNavigateDown<cr>")
-keymap("n", "<C-h>", "<cmd>KittyNavigateLeft<cr>")
+keymap("n", "<C-l>", "<cmd>wincmd l<cr>")
+keymap("n", "<C-k>", "<cmd>wincmd k<cr>")
+keymap("n", "<C-j>", "<cmd>wincmd j<cr>")
+keymap("n", "<C-h>", "<cmd>wincmd h<cr>")
