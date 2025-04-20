@@ -1,39 +1,46 @@
-@define-color foreground #eeeeee;
-@define-color foreground-inactive #aaaaaa;
-@define-color background #000000;
-
 * {
-    font-family: Cascadia Code NF;
-    font-size: 17px;
-    padding: 0;
-    margin: 0;
+    border: none;
+    border-radius: 0;
+    /* Make sure to install and use a Nerd Font */
+    font-family: Cascadia Mono NF, monospace;
+    font-size: 13px;
+    min-height: 0;
 }
 
-#waybar {
-    color: @foreground;
-    background-color: @background;
+window#waybar {
+    background-color: #000000; /* Black background */
+    color: #ffffff; /* White text */
 }
 
 #workspaces button {
-    color: @foreground;
+    color: #eeeeee;
     padding-left: 0.7em;
 }
 
 #workspaces button.empty {
-    color: @foreground-inactive;
+    color: #aaaaaa;
 }
 
+
+/* Style for individual modules */
+#clock,
+#cpu,
 #memory,
-#temperature {
-    padding-left: 1em
+#disk,
+#network,
+#pipewire, /* Use #pulseaudio if using PulseAudio */
+#tray,
+#window {
+    padding: 0 10px; /* Padding around module text/icons */
+    margin: 0 2px; /* Margin between modules */
+    color: #ffffff; /* White text */
+    background-color: transparent; /* Transparent background for modules */
 }
 
-#wireplumber,
-#battery,
-#backlight,
-#language,
-#network,
-#bluetooth,
 #tray {
-    padding-right: 1em 
+    padding: 0 5px; /* Less padding for tray icons */
+}
+
+#window {
+    font-weight: bold; /* Make window title bold */
 }

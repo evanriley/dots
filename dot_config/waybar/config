@@ -1,15 +1,11 @@
 {
     "layer": "top",
     "position": "bottom",
-    "mode": "overlay",
-    "start_hiden": true,
     "height": 24,
     "spacing": 5,
-
-    "modules-left": ["hyprland/workspaces", "memory"],
-    "modules-center": ["clock"],
-    "modules-right": ["wireplumber", "network", "bluetooth", "tray"],
-
+    "modules-left": ["hyprland/workspaces"],
+    "modules-center": ["hyprland/window"],
+    "modules-right": ["network", "cpu", "memory", "disk", "pipewire", "clock", "tray"],
     "hyprland/workspaces": {
         "format": "<span size='larger'>{icon}</span>",
         "on-click": "activate",
@@ -27,39 +23,45 @@
             "5": [],
         }
     },
-    "clock": {
-        "format": "{:%B %d, %Y | %I:%M %p}"
-    },
-    "wireplumber": {
-        "format": "\udb81\udd7e  {volume}%",
-        "max-volume": 100,
-        "scroll-step": 5
-    },
-    "memory": {
-        "interval": 30,
-        "format": "\uf4bc  {used:0.1f}G"
+    "hyprland/window": {
+        "format": "{}" // Display the current active window title
     },
     "network": {
-        "format": "",
-        "format-ethernet": "\udb83\udc9d",
-        "format-wifi": "{icon}",
-        "format-disconnected": "\udb83\udc9c",
-        "format-icons": ["\udb82\udd2f", "\udb82\udd1f", "\udb82\udd22", "\udb82\udd25", "\udb82\udd28"],
-        "tooltip-format-wifi": "{essid} ({signalStrength}%)",
-        "tooltip-format-ethernet": "{ifname}",
-        "tooltip-format-disconnected": "Disconnected",
+        // "interface": "wlan0", // Uncomment and set if auto-detection fails
+        "format-wifi": "{essid} ({signalStrength}%) ", // Wi-Fi format
+        "format-ethernet": "{ipaddr}/{cidr} ", // Ethernet format
+        "format-disconnected": "Offline ⚠", // Disconnected format
+        "tooltip-format": "{ifname} via {gwaddr} ",
+        "format-alt": "{ifname}: {ipaddr}/{cidr}"
     },
-
-    "bluetooth": {
-        "format": "\udb80\udcaf",
-        "format-disabled": "\udb80\udcb2",
-        "format-connected": "\udb80\udcb1",
-        "tooltip-format": "{controller_alias}\t{controller_address}",
-        "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
-        "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}"
+    "cpu": {
+        "format": "CPU: {usage}% ", // CPU usage format
+        "tooltip": true
+    },
+    "memory": {
+        "format": "MEM: {}% ", // Memory usage format
+        "tooltip": true
+    },
+    "disk": {
+        "interval": 30, // Update interval in seconds
+        "format": "DISK: {percentage_used}% ", // Disk usage format for '/'
+        "path": "/", // Monitor the root filesystem
+        "tooltip": true
+    },
+     "pipewire": { // Use "pulseaudio" if you use PulseAudio instead
+        "format": "{volume}% {icon}", // Volume format
+        "format-muted": "MUTED ", // Muted format
+        "format-icons": {
+            "default": ["", "", ""] // Icons for different volume levels
+        },
+        "tooltip": false
+    },
+    "clock": {
+        "format": "{:%I:%M %p %a %d}", // Time format (e.g., 04:30 PM Mon 20)
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>" // Tooltip with calendar
     },
     "tray": {
-        "icon-size": 16,
-        "spacing": 16
+        "icon-size": 16, // Size of tray icons
+        "spacing": 5 // Spacing between tray icons
     }
 }
