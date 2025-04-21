@@ -1,0 +1,68 @@
+{
+    "layer": "top",
+    "position": "bottom",
+    "mode": "overlay",
+    "height": 24,
+    "spacing": 5,
+    "modules-left": ["hyprland/workspaces"],
+    "modules-center": ["hyprland/window"],
+    "modules-right": ["network", "cpu", "memory", "disk", "pipewire", "clock", "tray"],
+    "hyprland/workspaces": {
+        "format": "<span size='larger'>{icon}</span>",
+        "on-click": "activate",
+        "format-icons": {
+            "active": "\uf444",
+            "default": "\uf4c3"
+        },
+        "icon-size": 10,
+        "sort-by-number": true,
+        "persistent-workspaces": {
+            "1": [],
+            "2": [],
+            "3": [],
+            "4": [],
+            "5": [],
+        }
+    },
+    "hyprland/window": {
+        "format": "{}" // Display the current active window title
+    },
+    "network": {
+        // "interface": "wlan0", // Uncomment and set if auto-detection fails
+        "format-wifi": "{essid} ({signalStrength}%) ", // Wi-Fi format
+        "format-ethernet": "{ipaddr}/{cidr} ", // Ethernet format
+        "format-disconnected": "Offline ⚠", // Disconnected format
+        "tooltip-format": "{ifname} via {gwaddr} ",
+        "format-alt": "{ifname}: {ipaddr}/{cidr}"
+    },
+    "cpu": {
+        "format": "CPU: {usage}% ", // CPU usage format
+        "tooltip": true
+    },
+    "memory": {
+        "format": "MEM: {}% ", // Memory usage format
+        "tooltip": true
+    },
+    "disk": {
+        "interval": 30, // Update interval in seconds
+        "format": "DISK: {percentage_used}% ", // Disk usage format for '/'
+        "path": "/", // Monitor the root filesystem
+        "tooltip": true
+    },
+     "pipewire": { // Use "pulseaudio" if you use PulseAudio instead
+        "format": "{volume}% {icon}", // Volume format
+        "format-muted": "MUTED ", // Muted format
+        "format-icons": {
+            "default": ["", "", ""] // Icons for different volume levels
+        },
+        "tooltip": false
+    },
+    "clock": {
+        "format": "{:%I:%M %p %a %d}", // Time format (e.g., 04:30 PM Mon 20)
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>" // Tooltip with calendar
+    },
+    "tray": {
+        "icon-size": 16, // Size of tray icons
+        "spacing": 5 // Spacing between tray icons
+    }
+}

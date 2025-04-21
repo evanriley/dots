@@ -1,0 +1,46 @@
+* {
+    border: none;
+    border-radius: 0;
+    /* Make sure to install and use a Nerd Font */
+    font-family: Cascadia Mono NF, monospace;
+    font-size: 13px;
+    min-height: 0;
+}
+
+window#waybar {
+    background-color: #000000; /* Black background */
+    color: #ffffff; /* White text */
+}
+
+#workspaces button {
+    color: #eeeeee;
+    padding-left: 0.7em;
+}
+
+#workspaces button.empty {
+    color: #aaaaaa;
+}
+
+
+/* Style for individual modules */
+#clock,
+#cpu,
+#memory,
+#disk,
+#network,
+#pipewire, /* Use #pulseaudio if using PulseAudio */
+#tray,
+#window {
+    padding: 0 10px; /* Padding around module text/icons */
+    margin: 0 2px; /* Margin between modules */
+    color: #ffffff; /* White text */
+    background-color: transparent; /* Transparent background for modules */
+}
+
+#tray {
+    padding: 0 5px; /* Less padding for tray icons */
+}
+
+#window {
+    font-weight: bold; /* Make window title bold */
+}

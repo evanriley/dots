@@ -1,0 +1,13 @@
+[Unit]
+Description=Run borgmatic backup inside Distrobox container
+# If your repo is on the network, uncomment this:
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+Environment="BORG_PASSPHRASE="
+ExecStart=distrobox enter borgmatic-backup -- /usr/bin/borgmatic --config /home/evan/.config/borgmatic/config.yaml --verbosity 1
+
+[Install]
+WantedBy=default.target

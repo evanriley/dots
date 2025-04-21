@@ -1,0 +1,107 @@
+# Local/private config goes in the include
+[include]
+  path = ~/.gitconfig.local
+[hub]
+  protocol = https
+[alias]
+  co = checkout
+  lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+  a = add
+  aa = add --all
+  d = diff
+  dc = diff --cached
+  pl = pull
+  pu = push
+  puf = push --force
+  s = status
+  co = checkout
+  cob = checkout -b
+  com = checkout main
+  amend = commit --amend --no-edit
+  c = commit
+  ca = commit -a
+  cam = commit -a -m
+  cm = commit -m
+  gone = "!f() { git fetch --all --prune; git branch -vv | awk '/: gone]/{print $1}' | xargs git branch -D; }; f"
+  rb = rebase
+  rba = rebase --abort
+  rbc = rebase --continue
+  rbi = rebase --interactive
+  rbs = rebase --skip
+  r = reset HEAD
+  r1 = reset HEAD^
+  r2 = reset HEAD^^
+  rhard = reset --hard
+  rhard1 = reset HEAD^ --hard
+  rhard2 = reset HEAD^^ --hard
+  sd = stash drop
+  spo = stash pop
+  spu = stash push
+  spua = stash push --all
+  rs = restore --staged
+[core]
+  excludesfile = /Users/evan/.gitignore
+  filemode = false
+  trustctime = false
+  autocrlf = false
+  safecrlf = false
+  pager = delta
+[apply]
+  whitespace = fix
+[interactive]
+  diffFilter = delta --color-only
+[delta]
+  navigate = true
+  dark = true
+[merge]
+  conflictstyle = diff3
+[diff]
+  tool = kitty
+  guitool = kitty.gui
+[mergetool]
+  keepBackup = false
+[help]
+  autocorrect = 1
+[push]
+  default = tracking
+[user]
+  name = Evan Riley
+  email = evan@evanriley.net
+	signingkey = 6654D512E44E3D20
+[commit]
+	gpgsign = true
+[difftool]
+  prompt = false
+  trustExitCode = true
+[difftool "nvimdiff"]
+  cmd = nvim -d $LOCAL $REMOTE
+[difftool "kitty"]
+  cmd = kitten diff $LOCAL $REMOTE
+[difftool "kitty.gui"]
+  cmd = kitten diff $LOCAL $REMOTE
+[mergetool "nvimmerge"]
+  cmd = nvim -d $LOCAL $BASE $REMOTE $MERGED -c 'winc J | winc ='
+  trustExitCode = true
+[fsck]
+  zeroPaddedFilemode = ignore
+[init]
+  defaultBranch = main
+[pull]
+  rebase = true
+[fetch]
+  prune = true
+[branch]
+  autosetupRebase = always
+  sort = -committerdate
+[github]
+  user = evanriley
+[submodule]
+  recurse = true
+[rebase]
+  autoStash = true
+[rerere]
+	enabled = true
+[column]
+	ui = auto
+[gpg]
+	program = gpg2
