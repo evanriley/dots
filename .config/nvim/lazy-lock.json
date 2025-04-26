@@ -31,6 +31,7 @@
   "neotest-go": { "branch": "main", "commit": "92950ad7be2ca02a41abca5c6600ff6ffaf5b5d6" },
   "neotest-rust": { "branch": "main", "commit": "e1cb22ecf0341fb894ef2ebde344389fe6e6fc8e" },
   "neotest-zig": { "branch": "main", "commit": "de63f3b9a182d374d2e71cf44385326682ec90e7" },
+  "no-neck-pain.nvim": { "branch": "main", "commit": "9cef4b9a54657f430cbac95a83c7cbf0bff28d31" },
   "nui.nvim": { "branch": "main", "commit": "8d5b0b568517935d3c84f257f272ef004d9f5a59" },
   "nvim-dap": { "branch": "master", "commit": "8df427aeba0a06c6577dc3ab82de3076964e3b8d" },
   "nvim-dap-go": { "branch": "main", "commit": "8763ced35b19c8dc526e04a70ab07c34e11ad064" },
