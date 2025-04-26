@@ -128,7 +128,7 @@ First let's install the theme
 
 Then we can use it
 #+begin_src emacs-lisp
-(setq doom-theme 'catppuccin)
+(setq doom-theme 'doom-earl-grey)
 #+end_src
 
 ** Fonts

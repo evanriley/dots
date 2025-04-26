@@ -75,7 +75,7 @@
 (when (file-exists-p custom-file)
   (load custom-file))
 
-(setq doom-theme 'catppuccin)
+(setq doom-theme 'doom-earl-grey)
 
 (setq doom-font (font-spec :family "Berkeley Mono" :size 14)
       doom-big-font (font-spec :family "Berkeley Mono" :size 24)
