@@ -15,7 +15,7 @@
       user-login-name "evan"
       user-mail-address (rot13 "rina@rinaevyrl.arg"))
 
-(setq auth-sources '("~/.authinfo.asc")
+(setq auth-sources '("~/.authinfo.gpg")
       auth-source-cache-expiry nil) ; default is 7200 (2h)
 
 (setq-default

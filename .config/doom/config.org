@@ -31,7 +31,7 @@ Various packages require some personal information.
 *** Authinfo
 Store this in my home directory, otherwise it will get lost
 #+begin_src emacs-lisp
-(setq auth-sources '("~/.authinfo.asc")
+(setq auth-sources '("~/.authinfo.gpg")
       auth-source-cache-expiry nil) ; default is 7200 (2h)
 #+end_src
 
