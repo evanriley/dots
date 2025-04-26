@@ -4,26 +4,26 @@ return {
     build = ':TSUpdate',
     opts = {
       ensure_installed = {
-        "bash",
-        "c",
-        "clojure",
-        "eex",
-        "elixir",
-        "go",
-        "gomod",
-        "gosum",
-        "gowork",
-        "gleam",
-        "heex",
-        "html",
-        "lua",
-        "luadoc",
-        "markdown",
-        "ron",
-        "rust",
-        "toml",
-        "vim",
-        "vimdoc",
+        'bash',
+        'c',
+        'clojure',
+        'eex',
+        'elixir',
+        'go',
+        'gomod',
+        'gosum',
+        'gowork',
+        'gleam',
+        'heex',
+        'html',
+        'lua',
+        'luadoc',
+        'markdown',
+        'ron',
+        'rust',
+        'toml',
+        'vim',
+        'vimdoc',
       },
       -- Autoinstall languages that are not installed
       auto_install = true,
@@ -35,10 +35,10 @@ return {
           enable = true,
           lookahead = true,
           keymaps = {
-            ["af"] = "@function.outer",
-            ["if"] = "@function.inner",
-            ["ac"] = "@class.outer",
-            ["ic"] = "@class.inner",
+            ['af'] = '@function.outer',
+            ['if'] = '@function.inner',
+            ['ac'] = '@class.outer',
+            ['ic'] = '@class.inner',
           },
         },
       },
@@ -50,28 +50,28 @@ return {
   },
   -- Auto Tags (HTML, etc)
   {
-    "windwp/nvim-ts-autotag",
-    event = { "BufReadPost", "BufNewFile", "BufWritePre" },
+    'windwp/nvim-ts-autotag',
+    event = { 'BufReadPost', 'BufNewFile', 'BufWritePre' },
     opts = {},
   },
   -- Additional text objects
   {
-    "nvim-treesitter/nvim-treesitter-textobjects",
-    event = "VeryLazy",
+    'nvim-treesitter/nvim-treesitter-textobjects',
+    event = 'VeryLazy',
     enabled = true,
     config = function()
       -- When in diff mode, we want to use the default
       -- vim text objects c & C instead of the treesitter ones.
-      local move = require("nvim-treesitter.textobjects.move") ---@type table<string,fun(...)>
-      local configs = require("nvim-treesitter.configs")
+      local move = require 'nvim-treesitter.textobjects.move' ---@type table<string,fun(...)>
+      local configs = require 'nvim-treesitter.configs'
       for name, fn in pairs(move) do
-        if name:find("goto") == 1 then
+        if name:find 'goto' == 1 then
           move[name] = function(q, ...)
             if vim.wo.diff then
-              local config = configs.get_module("textobjects.move")[name] ---@type table<string,string>
+              local config = configs.get_module('textobjects.move')[name] ---@type table<string,string>
               for key, query in pairs(config or {}) do
-                if q == query and key:find("[%]%[][cC]") then
-                  vim.cmd("normal! " .. key)
+                if q == query and key:find '[%]%[][cC]' then
+                  vim.cmd('normal! ' .. key)
                   return
                 end
               end
@@ -81,5 +81,15 @@ return {
         end
       end
     end,
-  }
+  },
+  {
+    'folke/ts-comments.nvim',
+    opts = {},
+    event = 'VeryLazy',
+    enabled = vim.fn.has 'nvim-0.10.0' == 1,
+  },
+  {
+    'nvim-treesitter/nvim-treesitter-context',
+    opts = {},
+  },
 }

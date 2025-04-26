@@ -83,6 +83,7 @@ return {
         zls = {},
         rust_analyzer = {},
         clojure_lsp = {},
+        ruff = {},
         lua_ls = {
           settings = {
             Lua = {

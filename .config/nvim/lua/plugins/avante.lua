@@ -18,7 +18,7 @@ return {
       'MunifTanjim/nui.nvim',
       'ibhagwan/fzf-lua',
       'echasnovski/mini.icons',
-      'zbirenbaum/copilot.lua', -- for providers='copilot'
+      'zbirenbaum/copilot.lua',
       {
         -- support for image pasting
         'HakonHarnes/img-clip.nvim',
@@ -43,5 +43,17 @@ return {
         ft = { 'markdown', 'Avante' },
       },
     },
+  },
+
+  {
+    'zbirenbaum/copilot.lua',
+    cmd = 'Copilot',
+    event = 'InsertEnter',
+    config = function()
+      require('copilot').setup {
+        suggestion = { enabled = false },
+        panel = { enabled = false },
+      }
+    end,
   },
 }

@@ -13,6 +13,7 @@ return {
         go = { 'gofmt', 'goimports' },
         gleam = { 'gleam' },
         zigfmt = { 'zigfmt' },
+        python = { 'ruff' },
       },
     },
   },
