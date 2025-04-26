@@ -1,3 +1,7 @@
 [tools]
-rust = "latest"
+clojure = "latest"
+elixir = "latest"
+erlang = "latest"
+gleam = "latest"
+rust = "nightly"
 zig = "latest"
