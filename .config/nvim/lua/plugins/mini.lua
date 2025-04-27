@@ -1,25 +1,5 @@
 return {
   {
-    keys = {
-      {
-        '<leader>bd',
-        function()
-          require('mini.bufremove').delete(0, false)
-        end,
-        desc = 'Delete current buffer',
-      },
-      {
-        '<leader>bq',
-        function()
-          local bufs = vim.fn.getbufinfo { buflisted = 1 }
-          for _, buf in ipairs(bufs) do
-            require('mini.bufremove').delete(buf.bufnr, false)
-          end
-        end,
-      },
-      { '<S-l>', '<cmd>bnext<cr>', mode = 'n', desc = 'Next buffer' },
-      { '<S-h>', '<cmd>bprevious<cr>', mode = 'n', desc = 'Previous buffer' },
-    },
     'echasnovski/mini.nvim',
     config = function()
       require('mini.basics').setup {
@@ -37,7 +17,6 @@ return {
           relnum_in_visual_mode = true,
         },
       }
-      require('mini.pairs').setup()
       require('mini.bracketed').setup()
       require('mini.bufremove').setup()
       require('mini.jump').setup()
@@ -58,5 +37,25 @@ return {
         },
       }
     end,
+    keys = {
+      {
+        '<leader>bd',
+        function()
+          require('mini.bufremove').delete(0, false)
+        end,
+        desc = 'Delete current buffer',
+      },
+      {
+        '<leader>bq',
+        function()
+          local bufs = vim.fn.getbufinfo { buflisted = 1 }
+          for _, buf in ipairs(bufs) do
+            require('mini.bufremove').delete(buf.bufnr, false)
+          end
+        end,
+      },
+      { '<S-l>', '<cmd>bnext<cr>', mode = 'n', desc = 'Next buffer' },
+      { '<S-h>', '<cmd>bprevious<cr>', mode = 'n', desc = 'Previous buffer' },
+    },
   },
 }

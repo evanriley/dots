@@ -9,11 +9,11 @@ return {
         'clojure',
         'eex',
         'elixir',
+        'gleam',
         'go',
         'gomod',
         'gosum',
         'gowork',
-        'gleam',
         'heex',
         'html',
         'lua',
@@ -52,7 +52,16 @@ return {
   {
     'windwp/nvim-ts-autotag',
     event = { 'BufReadPost', 'BufNewFile', 'BufWritePre' },
-    opts = {},
+    config = true,
+  },
+  {
+    'RRethy/nvim-treesitter-endwise',
+    event = { 'BufReadPost', 'BufNewFile', 'BufWritePre' },
+  },
+  {
+    'windwp/nvim-autopairs',
+    event = 'InsertEnter',
+    config = true,
   },
   -- Additional text objects
   {
