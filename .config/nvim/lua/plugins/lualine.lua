@@ -6,7 +6,16 @@ return {
     config = function()
       require('lualine').setup {
         options = {
-          theme = 'auto',
+          theme = function()
+            -- pcall and fallback theme is to handle the case of theme switching/previewing
+            local ok, t = pcall(require, 'lualine.themes.' .. (vim.o.background == 'light' and 'kanagawa-paper-canvas' or 'kanagawa-paper-ink'))
+            if ok then
+              theme = t
+            else
+              theme = 'auto'
+            end
+            return theme
+          end,
           icons_enabled = true,
           section_separators = { left = '', right = '' },
           component_separators = { left = '', right = '' },
