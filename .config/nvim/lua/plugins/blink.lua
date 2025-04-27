@@ -56,6 +56,9 @@ return {
       completion = { documentation = { auto_show = false } },
       sources = {
         default = { 'avante', 'lsp', 'path', 'snippets', 'buffer', 'copilot' },
+        per_filetype = {
+          org = { 'orgmode' },
+        },
         providers = {
           copilot = {
             name = 'copilot',
@@ -67,6 +70,11 @@ return {
             module = 'blink-cmp-avante',
             name = 'Avante',
             opts = {},
+          },
+          orgmode = {
+            name = 'Orgmode',
+            module = 'orgmode.org.autocompletion.blink',
+            fallbacks = { 'buffer' },
           },
         },
       },
