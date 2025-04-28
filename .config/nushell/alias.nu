@@ -11,9 +11,7 @@ alias ... = cd ../..
 alias .... = cd ../../..
 alias ..... = cd ../../../../
 
-alias ls = eza
 alias cat = bat
-alias du = dust
 
 alias clj-repl = clj "-J-Dclojure.server.repl={:port 5555 :accept clojure.core.server/repl :server-daemon false}"
 
