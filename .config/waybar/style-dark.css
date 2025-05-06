@@ -1,0 +1,44 @@
+* {
+    border: none;
+    border-radius: 0;
+    font-family: Cascadia Mono NF, monospace;
+    font-size: 13px;
+    min-height: 0;
+}
+
+window#waybar {
+    background-color: #1f1f28;
+    color: #dcd7ba;
+}
+
+#workspaces button {
+    color: #c8c093;
+    padding-left: 0.7em;
+}
+
+#workspaces button.empty {
+    color: #727169;
+}
+
+/* Style for individual modules */
+#clock,
+#cpu,
+#memory,
+#disk,
+#network,
+#pipewire,
+#tray,
+#window {
+    padding: 0 10px;
+    margin: 0 2px;
+    color: #dcd7ba;
+    background-color: transparent;
+}
+
+#tray {
+    padding: 0 5px;
+}
+
+#window {
+    font-weight: bold;
+}

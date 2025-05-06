@@ -1,11 +1,11 @@
 {
     "layer": "top",
     "position": "bottom",
-    "height": 24,
+    "height": 27,
     "spacing": 5,
     "modules-left": ["hyprland/workspaces"],
     "modules-center": ["hyprland/window"],
-    "modules-right": ["network", "cpu", "memory", "disk", "pipewire", "clock", "tray"],
+    "modules-right": ["network", "cpu", "memory", "disk", "pulseaudio", "clock", "tray"],
     "hyprland/workspaces": {
         "format": "<span size='larger'>{icon}</span>",
         "on-click": "activate",
@@ -48,7 +48,7 @@
         "path": "/", // Monitor the root filesystem
         "tooltip": true
     },
-     "pipewire": { // Use "pulseaudio" if you use PulseAudio instead
+     "pulseaudio": { // Use "pulseaudio" if you use PulseAudio instead
         "format": "{volume}% {icon}", // Volume format
         "format-muted": "MUTED ", // Muted format
         "format-icons": {
