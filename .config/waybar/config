@@ -1,12 +1,12 @@
 {
     "layer": "top",
-    "position": "bottom",
+    "position": "top",
     "height": 27,
     "spacing": 5,
-    "modules-left": ["hyprland/workspaces"],
-    "modules-center": ["hyprland/window"],
-    "modules-right": ["network", "cpu", "memory", "disk", "pulseaudio", "clock", "tray"],
-    "hyprland/workspaces": {
+    "modules-left": ["niri/workspaces"],
+    "modules-center": ["niri/window"],
+    "modules-right": ["pulseaudio", "clock", "tray", "custom/power"],
+    "niri/workspaces": {
         "format": "<span size='larger'>{icon}</span>",
         "on-click": "activate",
         "format-icons": {
@@ -23,7 +23,7 @@
             "5": [],
         }
     },
-    "hyprland/window": {
+    "niri/window": {
         "format": "{}" // Display the current active window title
     },
     "network": {
@@ -63,5 +63,9 @@
     "tray": {
         "icon-size": 16, // Size of tray icons
         "spacing": 5 // Spacing between tray icons
-    }
+    },
+    "custom/power": {
+        "format": "⏻ ",
+        "on-click": "~/.config/scripts/power_menu.sh",
+    },
 }
