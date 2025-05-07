@@ -4,5 +4,5 @@ After=graphical-session.target
 Requisite=graphical-session.target
 
 [Service]
-ExecStart=/usr/bin/swaybg -c "#1E1E2E" -m center -i "%h/Pictures/Fedora.png"
+ExecStart=/usr/bin/swaybg -c "#1F1F28" -m center
 Restart=on-failure
