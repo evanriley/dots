@@ -3,12 +3,12 @@ return {
     -- Main LSP Configuration
     'neovim/nvim-lspconfig',
     dependencies = {
-      { 'williamboman/mason.nvim', opts = {} },
-      'williamboman/mason-lspconfig.nvim',
+      { 'mason-org/mason.nvim', opts = {} },
+      'mason-org/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
 
       -- Useful status updates for LSP.
-      { 'j-hui/fidget.nvim', opts = {} },
+      { 'j-hui/fidget.nvim',    opts = {} },
     },
     config = function()
       vim.api.nvim_create_autocmd('LspAttach', {
