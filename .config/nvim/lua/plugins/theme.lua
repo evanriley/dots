@@ -1,23 +1,19 @@
 return {
   {
-    'thesimonho/kanagawa-paper.nvim',
+    'webhooked/kanso.nvim',
     priority = 1000, -- Make sure to load this before all the other start plugins.
     lazy = false,
     config = function()
-      require('kanagawa-paper').setup {
-        undercurl = true,
-        commentStyle = { italic = false },
-        keywordStyle = { italic = false },
-        integrations = {
-          wezterm = {
-            enabled = true,
-            path = (os.getenv 'TEMP' or '/tmp') .. '/nvim-theme',
-          },
-        },
+      require('kanso').setup {
+        disableItalics = true,
+        background = {
+          dark = "zen",
+          light = "pearl"
+        }
       }
     end,
     init = function()
-      vim.cmd 'colorscheme kanagawa-paper-ink'
+      vim.cmd 'colorscheme kanso'
     end,
   },
 }
